@@ -1,0 +1,5 @@
+baseurl: .
+paginate: 20
+markdown: kramdown
+cf_num: 3
+rooturl: .

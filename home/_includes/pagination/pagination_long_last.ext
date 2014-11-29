@@ -1,0 +1,3 @@
+	<li class="disabled"><a>...</a></li>
+	<li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.total_pages }}">{{ paginator.total_pages }}</a></li>
+

@@ -1,0 +1,13 @@
+{% if page.category == 'home' %}
+	{% include home/sidebar.ext %}
+{% endif %}
+
+{% if page.category == 'codeforces' %}
+	{% include codeforces/sidebar.ext %}
+{% endif %}
+
+{% if page.category == 'chinese' %}
+	{% include chinese/sidebar.ext %}
+{% endif %}
+
+

@@ -1,0 +1,3 @@
+	{% include home/profile.ext %}
+	{% include search.ext %}
+	{% include home/highlight.ext %}

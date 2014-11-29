@@ -1,0 +1,6 @@
+{% if paginator.previous_page %}
+	<li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.previous_page }}">&laquo;</a></li>
+{% else %}
+	<li class="disabled"><a>&laquo;</a></li>
+{% endif %}
+

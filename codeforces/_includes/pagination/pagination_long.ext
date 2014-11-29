@@ -1,0 +1,40 @@
+{% include pagination/previous.ext %}
+
+{% if paginator.page < 5 %}
+
+	{% for page in (1..5) %}
+	    {% if page == paginator.page %}
+	      <li class="active"><a>{{ page }}</a></li>
+	    {% elsif page == 1 %}
+		<li><a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a></li>
+	    {% else %}
+	      <li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
+	    {% endif %}
+	{% endfor %}
+	{% include pagination/pagination_long_last.ext %}
+
+{%elsif paginator.next_page >= paginator.total_pages or paginator.page == paginator.total_pages %}
+
+	{% include pagination/pagination_long_first.ext %}
+	{% for page in (paginator.previous_page..paginator.total_pages) %}
+	    {% if page == paginator.page %}
+	      <li class="active"><a>{{ page }}</a></li>
+	    {% else %}
+	      <li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
+	    {% endif %}
+	{% endfor %}
+
+{% else %}
+
+	{% include pagination/pagination_long_first.ext %}
+	<li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.previous_page }}">{{ paginator.previous_page}}</a></li>
+	<li class="active"><a>{{ paginator.page }}</a></li>
+	<li><a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.next_page}}">{{ paginator.next_page}}</a></li>
+
+	{% include pagination/pagination_long_last.ext %}
+
+{% endif %}
+
+{% include pagination/next.ext %}
+
+
