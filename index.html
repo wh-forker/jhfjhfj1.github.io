@@ -32,11 +32,6 @@
       <div class="container">
         <div class="navbar-header">
           <a href="././index.html" class="navbar-brand">Haifeng Jin's Blog</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
@@ -52,7 +47,16 @@
             <li>
               <a href="https://github.com/jhfjhfj1/codelib">Library</a>
             </li>
-
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown">Search<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li>
+				<form class="navbar-form" style="padding-bottom:35px">
+				<input type="text" name="search-key-words" class="form-control col-lg-8" onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
+				</form>
+				</li>
+			</ul>
+		</li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -63,6 +67,13 @@
         </div>
       </div>
     </div>
+<script type="text/javascript"> 
+function googlesearch () {
+var key=document.getElementsByName("search-key-words")[0].value;
+var link="http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q="+key;
+window.open(link);
+document.getElementsByName("search-key-words")[0].value=""}
+</script>
 
 
 	
@@ -89,89 +100,37 @@
     <div class="container">
 
         <div class="row">
+		<div class="col-md-4">
+<div class="thumbnail" style="height:250px">
+	<div class="caption">
+        <h3 class="text-center">Codeforces</h3>
+        <p>There are some write-ups for the problems I solved on Codeforces.</p>
+	<p><a href="./codeforces/index.html" class="btn btn-default pull-right" role="button">More</a>
+	</div>
+</div>
+</div><div class="col-md-4">
+<div class="thumbnail" style="height:250px">
+	<div class="caption">
+        <h3 class="text-center">Chinese</h3>
+        <p>There are the blogs I have moved from my old CNBlogs, which are mainly about ACM-ICPC. All the posts here are written in Chinese.</p>
+	<p><a href="./chinese/index.html" class="btn btn-default pull-right" role="button">More</a>
+	</div>
+</div>
+</div><div class="col-md-4">
+<div class="thumbnail" style="height:250px">
+	<div class="caption">
+        <h3 class="text-center">Code Library</h3>
+        <p>This is my own code library for competitive programming. The readability of the code is much better than most of the similar ones. You can fork it if you would like to use it.</p>
+	<p><a href="https://github.com/jhfjhfj1/codelib" class="btn btn-default pull-right" role="button">More</a>
+	</div>
+</div>
 
-		            <!-- Blog Entries Column -->
-            <div class="col-md-9">
-		<table class="table table-striped table-hover ">
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tbody>
-			
-			</tbody>
-		</table>
-		<div class="text-center">
-			
-
-
-		</div>
-           </div>
+</div>
 
 
 
 
-
-
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-3">
-		<div><p></p></div>
 		
-		<!-- Side Widget Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>Introduction</big></div>
-  <div class="panel-body">
-    <p>This is Haifeng Jin's blog.</p>
-  </div>
-</div>
-
-
-	<!-- Blog Search Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>Blog Search</big></div>
-  <div class="panel-body">
-    <div class="input-group">
-      <script type="text/javascript"> 
-        function googlesearch () {
-        var key=document.getElementsByName("search-key-words")[0].value;
-        var link="http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q="+key;
-        window.open(link);
-        document.getElementsByName("search-key-words")[0].value=""}
-      </script>
-      <input type="text" name="search-key-words" class="form-control" onkeydown="if(event.keyCode==13) googlesearch();">
-      <span class="input-group-btn">
-          <button class="btn btn-default" type="button" onclick="javascript:googlesearch()" value="Google Search">
-              <span class="glyphicon glyphicon-search"></span>
-        </button>
-      </span>
-    </div>
-    <!-- /.input-group -->
-  </div>
-</div>
-
-
-	<!-- Blog Categories Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>Highlight</big></div>
-  <div class="panel-body">
-	<ul class="list-unstyled">
-	</ul>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-            </div>
 
         </div>
         <!-- /.row -->
