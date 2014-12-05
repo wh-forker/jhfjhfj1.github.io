@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>464B</title>
+    <title>455B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>464B</h1>
+                <h1>455B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 03 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 05 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">brute force</span>
+			<span class="label label-default">games</span>
 			
-			<span class="label label-default">dfs</span>
+			<span class="label label-default">trie</span>
 			
 		</div>
 
@@ -129,198 +129,115 @@ document.getElementsByName("search-key-words")[0].value=""}
 
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-We can use the following code to go through all the permutations of an array.</p>
-
-<pre><code>sort(array, array + n);
-do
-{} while (next_permutation(array, array + n));
-</code></pre>
-
-<p><br /></p>
+Trie can be implemented with a two dimentional array.
+<br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
 #include &lt;cstdlib&gt;
-#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
-#define zero(x) (((x)&gt;0?(x):-(x))&lt;eps)
-#define eps 1.0E-8
-#define MAX_POINT_NUM 0
-#define D(x)
+#define D(x) x
 
-struct Point
+const int MAX_CHAR_NUM = 30;
+const int MAX_N = int(1e5) + 10;
+const int MAX_NODE_NUM = MAX_N;
+
+int trie[MAX_NODE_NUM][MAX_CHAR_NUM];
+int node_num;
+
+int n, round_num;
+char st[MAX_N];
+bool leaf;
+
+void trie_init()
 {
-	int x, y, z;
+	memset(trie, -1, sizeof(trie));
+	node_num = 1;
+}
 
-	Point()
-	{
-		x = y = z = 0;
-	}
-
-	Point(int x, int y, int z): x(x), y(y), z(z)
-	{}
-
-	Point operator - (const Point &amp;a) const
-	{
-		return Point(x - a.x, y - a.y, z - a.z);
-	}
-
-	Point operator + (const Point &amp;a) const
-	{
-		return Point(x + a.x, y + a.y, z + a.z);
-	}
-
-	bool operator == (const Point &amp;a) const
-	{
-		return x == a.x &amp;&amp; y == a.y &amp;&amp; z == a.z;
-	}
-}point[10];
-
-long long dot_product(Point a, Point b)
+int convert(char ch)
 {
-	return 1LL*a.x * b.x + 1LL*a.y * b.y + 1LL*a.z * b.z;
+	return ch - 'a';
+}
+
+void add(char* st)
+{
+	int u = 0;
+	for (int i = 0; st[i]; i++)
+	{
+		int index = convert(st[i]);
+		if (trie[u][index] == -1)
+		{
+			trie[u][index] = node_num++;
+		}
+		u = trie[u][index];
+	}
 }
 
 void input()
 {
-	for (int i = 0; i &lt; 8; i++)
+	scanf("%d%d", &amp;n, &amp;round_num);
+	for (int i = 0; i &lt; n; i++)
 	{
-		int a, b, c;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		point[i] = Point(a, b, c);
+		scanf("%s", st);
+		add(st);
 	}
 }
 
-long long point_dist(Point a)
+bool dfs(int u)
 {
-	return 1LL*a.x * a.x + 1LL*a.y * a.y + 1LL*a.z * a.z;
-}
-
-bool perpendicular(Point a, Point b)
-{
-	return (dot_product(a, b)) == 0;
-}
-
-bool exist(Point a)
-{
-	for (int i = 0; i &lt; 8; i++)
+	bool have_child = false;
+	bool ret = false;
+	for (int i = 0; i &lt; 26; i++)
 	{
-		if (point[i] == a)
+		if (trie[u][i] != -1)
 		{
-			return true;
+			have_child = true;
+			ret = ret || !dfs(trie[u][i]);
 		}
 	}
-	return false;
-}
-
-bool is_cube()
-{
-	int num = 0;
-	long long min_val = point_dist(point[0] - point[1]);
-	long long dist_array[10];
-	Point vec[10];
-	for (int i = 1; i &lt; 8; i++)
-	{
-		double temp = point_dist(point[0] - point[i]);
-		dist_array[i] = temp;
-		if ((temp - min_val) &lt; 0)
-		{
-			min_val = temp;
-		}
-	}
-	for (int i = 1; i &lt; 8; i++)
-	{
-		if ((dist_array[i] - min_val) == 0 &amp;&amp; !(point[0] == point[i]))
-		{
-			vec[num++] = point[i] - point[0];
-		}
-	}
-	if (num != 3)
-	{
-		return false;
-	}
-	if (!perpendicular(vec[0], vec[1]))
-	{
-		return false;
-	}
-	if (!perpendicular(vec[0], vec[2]))
-	{
-		return false;
-	}
-	if (!perpendicular(vec[2], vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[2]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[2] + vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[1] + vec[2]))
-	{
-		return false;
-	}
-	return true;
+	if (have_child)
+		return ret;
+	return leaf;
 }
 
 void output()
 {
-	puts("YES");
-	for (int i = 0; i &lt; 8; i++)
+	for (int i = 0; i &lt; 24; i++)
 	{
-		int a = point[i].x;
-		int b = point[i].y;
-		int c = point[i].z;
-		printf("%d %d %d\n", a, b, c);
-	}
-}
-
-void dfs(int depth)
-{
-	if (depth == 8)
-	{
-		if (is_cube())
+		for (int j = 0; j &lt; 26; j++)
 		{
-			output();
-			exit(0);
+			printf("%d ", trie[i][j]);
 		}
-		return;
+		puts("");
 	}
-	int value[10];
-	Point temp = point[depth];
-	value[0] = point[depth].x;
-	value[1] = point[depth].y;
-	value[2] = point[depth].z;
-	sort(value, value + 3);
-	while (true)
-	{
-		point[depth].x = value[0];
-		point[depth].y = value[1];
-		point[depth].z = value[2];
-		dfs(depth + 1);
-		if (!next_permutation(value, value + 3))
-		{
-			break;
-		}
-	}
-	point[depth] = temp;
 }
 
 int main()
 {
+	trie_init();
 	input();
-	dfs(1);
-	puts("NO");
+	leaf = false;
+	bool win = dfs(0);
+	leaf = true;
+	bool lose = dfs(0);
+	if (win &amp;&amp; lose)
+	{
+		puts("First");
+	}else if (win &amp;&amp; !lose)
+	{
+		if (round_num &amp; 1)
+			puts("First");
+		else
+			puts("Second");
+	}else if (!win)
+	{
+		puts("Second");
+	}
 	return 0;
 }
 </code></pre>
