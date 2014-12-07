@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>482B</title>
+    <title>444B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>482B</h1>
+                <h1>444B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 29 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 07 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">consecutive algorithms</span>
+			<span class="label label-default">random algorithm</span>
+			
+			<span class="label label-default">implementation</span>
 			
 		</div>
 
@@ -125,128 +127,143 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<h3 id="description">Description</h3>
+<p><br />
+There are two sequences called <script type="math/tex">a</script> and <script type="math/tex">b</script> of length <script type="math/tex">n</script>.</p>
+
+<p><script type="math/tex">a</script> is a permutation of 1~<script type="math/tex">n</script>.</p>
+
+<p><script type="math/tex">b</script> have <script type="math/tex">d</script> ones and <script type="math/tex">n-d</script> zeros.</p>
+
+<p><script type="math/tex">c_i=max(a_{i-j}b_j)</script>,<script type="math/tex">(0\leq j\leq i)</script>.
+<br /></p>
+
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
+Set an value to <script type="math/tex">s</script>. (<script type="math/tex">1 \leq s \leq n</script>)
+For each <script type="math/tex">c_i</script>, we try the answer <script type="math/tex">x</script> from <script type="math/tex">n</script> to <script type="math/tex">s</script>.
+We can know whether <script type="math/tex">c_i = x</script> in <script type="math/tex">O(1)</script> with a preprocessing of recording the position of each number in <script type="math/tex">a</script>.</p>
+
+<p>If the answer is not found with the operations above, we calculated with brute force.
+But we first record the position of each “1” in <script type="math/tex">b</script>, and we only check the “1”s to accelerate the brute force process.</p>
+
+<p><br /></p>
+
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;cstdlib&gt;
 #include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_M 100005
 #define MAX_N 100005
-#define MAX_BIT_NUM 40
-#define D(x) x
+#define D(x) 
 
-struct Condition
+int a[MAX_N], b[MAX_N];
+int n, d;
+long long x;
+int one_num, one_pos[MAX_N];
+int pos_a[MAX_N];
+int ans[MAX_N];
+
+void output(int ans[])
 {
-	int l, r, q;
-}condition[MAX_M];
+	for (int i = 0; i &lt; n; i++)
+	{
+		printf("%d\n", ans[i]);
+	}
+}
 
-int n, m;
-int seq[MAX_N][MAX_BIT_NUM];
-int delta[MAX_N][MAX_BIT_NUM];
-int sum[MAX_N][MAX_BIT_NUM];
+int getNextX() {
+	x = (x * 37 + 10007) % 1000000007;
+	return x;
+}
 
+void initAB() {
+	int i;
+	for(i = 0; i &lt; n; i = i + 1){
+		a[i] = i + 1;
+	}
+	for(i = 0; i &lt; n; i = i + 1){
+		swap(a[i], a[getNextX() % (i + 1)]);
+	}
+	for(i = 0; i &lt; n; i = i + 1){
+		if (i &lt; d)
+			b[i] = 1;
+		else
+			b[i] = 0;
+	}
+	for(i = 0; i &lt; n; i = i + 1){
+		int y;
+		swap(b[i], b[y = getNextX() % (i + 1)]);
+		D(printf("%d%d\n", i, y));
+		D(output(b));
+		D(puts(""));
+	}
+}
+
+void work()
+{
+	int s = 30;
+	for (int i = 0; i &lt; n; i++)
+	{
+		if (b[i] == 1)
+		{
+			one_pos[one_num++] = i;
+		}
+	}
+
+	for (int i = 0; i &lt; n; i++)
+	{
+		a[i]--;
+		pos_a[a[i]] = i;
+	}
+
+	memset(ans, 0, sizeof(ans));
+	for (int i = n - 1; i &gt;= 0; i--)
+	{
+		for (int j = n - 1; j &gt;= n - s &amp;&amp; j &gt;= 0; j--)
+		{
+			if (pos_a[j] &lt;= i &amp;&amp; b[i - pos_a[j]] == 1)
+			{
+				ans[i] = j + 1;
+				break;
+			}
+		}
+
+		if (ans[i] != 0)
+		{
+			continue;
+		}
+
+		for (int j = 0; j &lt; one_num; j++)
+		{
+			if (i - one_pos[j] &lt; 0)
+			{
+				break;
+			}
+			ans[i] = max(ans[i], a[i - one_pos[j]] + 1);
+		}
+	}
+}
 void input()
 {
-	scanf("%d%d", &amp;n, &amp;m);
-	for (int i = 0; i &lt; m; i++)
-	{
-		int a, b, c;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		condition[i].l = a;
-		condition[i].r = b;
-		condition[i].q = c;
-	}
-}
-
-int get_bit(int l, int r, int pos)
-{
-	int temp = sum[r][pos] - sum[l - 1][pos] - (r - l + 1);
-	if (temp == 0)
-		return 1;
-	return 0;
-}
-
-int work()
-{
-	for (int i = 0; i &lt; m; i++)
-	{
-		int q = condition[i].q;
-		for (int j = 0; q; q &gt;&gt;= 1, j++)
-		{
-			if (q &amp; 1)
-			{
-				delta[condition[i].l][j] += 1;
-				delta[condition[i].r + 1][j] += -1;
-			}
-		}
-	}
-
-	int temp[MAX_BIT_NUM];
-	fill(temp, temp + MAX_BIT_NUM, 0);
-	for (int i = 1; i &lt;= n; i++)
-	{
-		for (int j = 0; j &lt; MAX_BIT_NUM; j++)
-		{
-			temp[j] += delta[i][j];
-			if (temp[j])
-			{
-				seq[i][j] = 1;
-			}
-			sum[i][j] = sum[i - 1][j] + seq[i][j];
-		}
-	}
-
-	for (int i = 0; i &lt; m; i++)
-	{
-		int q = condition[i].q;
-		for (int j = 0; j &lt;= 30; j++, q &gt;&gt;= 1)
-		{
-			if (get_bit(condition[i].l, condition[i].r, j) != (q &amp; 1))
-			{
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-int get_value(int pos)
-{
-	int ret = 0;
-	for (int i = 30; i &gt;= 0; i--)
-	{
-		ret = (ret &lt;&lt; 1) + seq[pos][i];
-	}
-	return ret;
-}
-
-void output()
-{
-	printf("%d", get_value(1));
-	for (int i = 2; i &lt;= n; i++)
-	{
-		printf(" %d", get_value(i));
-	}
-	puts("");
+	int xx;
+	scanf("%d%d%d", &amp;n, &amp;d, &amp;xx);
+	x = xx;
 }
 
 int main()
 {
 	input();
-	if (work())
-	{
-		puts("YES");
-		output();
-	}else
-	{
-		puts("NO");
-	}
+	initAB();
+	work();
+	output(ans);
 	return 0;
 }
 </code></pre>
-
 
                 <hr>
 

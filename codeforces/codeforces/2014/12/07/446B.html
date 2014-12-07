@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>482B</title>
+    <title>446B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>482B</h1>
+                <h1>446B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 29 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 07 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">consecutive algorithms</span>
+			<span class="label label-default">brute force</span>
+			
+			<span class="label label-default">greedy</span>
 			
 		</div>
 
@@ -128,125 +130,95 @@ document.getElementsByName("search-key-words")[0].value=""}
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<pre><code>#include &lt;cstdlib&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
 #include &lt;algorithm&gt;
+#include &lt;queue&gt;
 using namespace std;
 
-#define MAX_M 100005
-#define MAX_N 100005
-#define MAX_BIT_NUM 40
-#define D(x) x
+#define MAX_ROW_NUM 1005
+#define MAX_COL_NUM MAX_ROW_NUM
+#define D(x) 
+#define MAX_K 1000005
 
-struct Condition
-{
-	int l, r, q;
-}condition[MAX_M];
-
-int n, m;
-int seq[MAX_N][MAX_BIT_NUM];
-int delta[MAX_N][MAX_BIT_NUM];
-int sum[MAX_N][MAX_BIT_NUM];
+int row_num, col_num;
+int operation_num;
+int decrease_value;
+int matrix[MAX_ROW_NUM][MAX_COL_NUM];
+int row_sum[MAX_ROW_NUM];
+int col_sum[MAX_COL_NUM];
+long long row_ans[MAX_K];
+long long col_ans[MAX_K];
 
 void input()
 {
-	scanf("%d%d", &amp;n, &amp;m);
-	for (int i = 0; i &lt; m; i++)
+	scanf("%d%d", &amp;row_num, &amp;col_num);
+	scanf("%d%d", &amp;operation_num, &amp;decrease_value);
+	for (int i = 0; i &lt; row_num; i++)
 	{
-		int a, b, c;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		condition[i].l = a;
-		condition[i].r = b;
-		condition[i].q = c;
+		for (int j = 0; j &lt; col_num; j++)
+		{
+			int a;
+			scanf("%d", &amp;a);
+			matrix[i][j] = a;
+			row_sum[i] += a;
+			col_sum[j] += a;
+		}
 	}
 }
 
-int get_bit(int l, int r, int pos)
+void make(priority_queue&lt;int&gt; &amp;pq, int multi)
 {
-	int temp = sum[r][pos] - sum[l - 1][pos] - (r - l + 1);
-	if (temp == 0)
-		return 1;
-	return 0;
+	int top = pq.top();
+	pq.pop();
+	top -= decrease_value * multi;
+	pq.push(top);
 }
 
-int work()
+long long work()
 {
-	for (int i = 0; i &lt; m; i++)
+	priority_queue&lt;int&gt; pq_row;
+	priority_queue&lt;int&gt; pq_col;
+	for (int i = 0; i &lt; row_num; i++)
 	{
-		int q = condition[i].q;
-		for (int j = 0; q; q &gt;&gt;= 1, j++)
-		{
-			if (q &amp; 1)
-			{
-				delta[condition[i].l][j] += 1;
-				delta[condition[i].r + 1][j] += -1;
-			}
-		}
+		pq_row.push(row_sum[i]);
 	}
-
-	int temp[MAX_BIT_NUM];
-	fill(temp, temp + MAX_BIT_NUM, 0);
-	for (int i = 1; i &lt;= n; i++)
+	for (int i = 0; i &lt; col_num; i++)
 	{
-		for (int j = 0; j &lt; MAX_BIT_NUM; j++)
-		{
-			temp[j] += delta[i][j];
-			if (temp[j])
-			{
-				seq[i][j] = 1;
-			}
-			sum[i][j] = sum[i - 1][j] + seq[i][j];
-		}
+		pq_col.push(col_sum[i]);
 	}
-
-	for (int i = 0; i &lt; m; i++)
+	col_ans[0] = row_ans[0] = 0;
+	for (int i = 1; i &lt;= operation_num; i++)
 	{
-		int q = condition[i].q;
-		for (int j = 0; j &lt;= 30; j++, q &gt;&gt;= 1)
-		{
-			if (get_bit(condition[i].l, condition[i].r, j) != (q &amp; 1))
-			{
-				return false;
-			}
-		}
+		row_ans[i] = pq_row.top() + row_ans[i - 1];
+		make(pq_row, col_num);
 	}
-	return true;
-}
-
-int get_value(int pos)
-{
-	int ret = 0;
-	for (int i = 30; i &gt;= 0; i--)
+	for (int i = 1; i &lt;= operation_num; i++)
 	{
-		ret = (ret &lt;&lt; 1) + seq[pos][i];
+		col_ans[i] = pq_col.top() + col_ans[i - 1];
+		make(pq_col, row_num);
+	}
+	long long ret = -(1LL &lt;&lt; 50);
+	for (int i = 0; i &lt;= operation_num; i++)
+	{
+		long long temp = col_ans[i] + row_ans[operation_num - i];
+		long long total_decrease = decrease_value;
+		total_decrease *= i;
+		total_decrease *= operation_num - i;
+		temp -= total_decrease;
+		ret = max(ret, temp);
 	}
 	return ret;
-}
-
-void output()
-{
-	printf("%d", get_value(1));
-	for (int i = 2; i &lt;= n; i++)
-	{
-		printf(" %d", get_value(i));
-	}
-	puts("");
 }
 
 int main()
 {
 	input();
-	if (work())
-	{
-		puts("YES");
-		output();
-	}else
-	{
-		puts("NO");
-	}
+	printf("%I64d\n", work());
 	return 0;
 }
 </code></pre>
-
 
                 <hr>
 
