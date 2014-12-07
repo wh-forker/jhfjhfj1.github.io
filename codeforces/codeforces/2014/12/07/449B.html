@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>484B</title>
+    <title>449B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>484B</h1>
+                <h1>449B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 27 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 07 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">number theory</span>
-			
-			<span class="label label-default">binary search</span>
+			<span class="label label-default">shortest path</span>
 			
 		</div>
 
@@ -129,59 +127,116 @@ document.getElementsByName("search-key-words")[0].value=""}
 
 <h3 id="description">Description</h3>
 <p><br />
-You are given a sequence a consisting of <script type="math/tex">n</script> integers.
-Find the maximum possible value of <script type="math/tex">a_i</script> mod <script type="math/tex">a_j</script>, where <script type="math/tex">1 \leq i, j \leq n</script> and <script type="math/tex">a_i \geq a_j</script>.
-(<script type="math/tex">n \leq 2 \times 10^5</script>)<br />
+The first node of a undirected graph is the capital,
+whose edges are normal roads.
+In addition, there are some train routes connecting the capital and other cities.
+Output how many train routes can be closed without affecting the shortest distance between the capital and each city.
+There are <script type="math/tex">n</script> cities (<script type="math/tex">1 \leq n \leq 10^5) and </script>m<script type="math/tex"> roads (</script>1 \leq m \leq 3 \times 10^5).
 <br /></p>
 
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-Sort the sequence first.
-Let us iterate over all different <script type="math/tex">a_j</script>.
-Since we need to maximize, then iterate all integer <script type="math/tex">x</script> (such <script type="math/tex">x</script> divisible by <script type="math/tex">a_j</script>) in range from <script type="math/tex">2 \times a_j</script> to <script type="math/tex">M</script>, where <script type="math/tex">M</script> is the sum of the max value in the sequence and <script type="math/tex">a_j</script>.
-For each such <script type="math/tex">x</script> we need to find maximum <script type="math/tex">a_i</script>, such <script type="math/tex">% <![CDATA[
-a_i < x %]]></script>.</p>
+We initially set the shortest distance to each city by its train route.
+Then start the Dijkstra algorithm.
+When updating the distance of a node, if the new distance is less than or equal to the original distance, it means that the train route to that node is not necessary (we find another shortest path other than the train route).</p>
 
-<p>You can do this in time <script type="math/tex">O(1)</script> with preprocess the answers for 1 to <script type="math/tex">10^6</script>.
-But I would rather directly use lower_bound, the time of which is <script type="math/tex">O(logN)</script>.
-After that, update answer by <script type="math/tex">a_i</script> mod <script type="math/tex">a_j</script>.  </p>
+<p>I learned how to define a graph by vector.</p>
 
-<p>Notably, the total time complexity is <script type="math/tex">O(NlogN + MlogMlogN)</script>.
-The iteration for all the <script type="math/tex">a_j</script> and <script type="math/tex">x</script> is <script type="math/tex">O(MlogM)</script>.
-Because <script type="math/tex">\sum\limits_{i=1}^{M} \frac{M}{i} \approx O(MlogM)</script> which can be deducted from Euler-Mascheroni constant.<br />
+<pre><code>vector&lt;pair&lt;int, int&gt; &gt; edge[MAX_NODE_NUM];
+edge[u].push_back(make_pair(v, w));
+</code></pre>
+
+<p>I also updated the template for Dijkstra.
 <br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<pre><code>#include &lt;cstring&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
+<pre><code>#include &lt;cstdio&gt;
 #include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
 using namespace std;
 
-#define MAX_N 200005
+#define MAX_EDGE_NUM 300005 * 2
+#define MAX_NODE_NUM 100005
+#define INF (1LL &lt;&lt; 60)
 #define D(x) 
 
-int n;
-int f[MAX_N];
+int node_num, edge_num, route_num;
+long long dist[MAX_NODE_NUM];
+bool train[MAX_NODE_NUM];
+vector&lt;pair&lt;int, int&gt; &gt; edge[MAX_NODE_NUM];
 
 void input()
 {
-	scanf("%d", &amp;n);
-	for (int i = 0; i &lt; n; i++)
-		scanf("%d", &amp;f[i]);
+	scanf("%d%d", &amp;node_num, &amp;edge_num);
+	scanf("%d", &amp;route_num);
+	for (int i = 0; i &lt; edge_num; i++)
+	{
+		int u, v, w;
+		scanf("%d%d%d", &amp;u, &amp;v, &amp;w);
+		v--;
+		u--;
+		edge[u].push_back(make_pair(v, w));
+		edge[v].push_back(make_pair(u, w));
+	}
+	fill(dist, dist + node_num, INF);
+	fill(train, train + node_num, false);
+	for (int i = 0; i &lt; route_num; i++)
+	{
+		int v, w;
+		scanf("%d%d", &amp;v, &amp;w);
+		v--;
+		dist[v] = min(dist[v], (long long)w);
+		train[v] = true;
+	}
+}
+
+priority_queue&lt;pair&lt;long long, int&gt; &gt; pq;
+
+void dijkstra(int source)
+{
+	dist[source] = 0;
+	pq.push(make_pair(0LL, 0));
+	for (int i = 0; i &lt; node_num; i++)
+		if (train[i])
+		{
+			pq.push(make_pair(-dist[i], i));
+		}
+	while (!pq.empty())
+	{
+		int u = pq.top().second;
+		long long w = -pq.top().first;
+		pq.pop();
+		if (dist[u] != w)
+			continue;
+		for (int i = 0; i &lt; (int)edge[u].size(); i++)
+		{
+			int v = edge[u][i].first;
+			long long new_w = edge[u][i].second + w;
+			if (dist[v] &gt;= new_w &amp;&amp; train[v])
+			{
+				train[v] = false;
+			}
+			if (dist[v] &gt; new_w)
+			{
+				dist[v] = new_w;
+				pq.push(make_pair(-dist[v], v));
+			}
+		}
+	}
 }
 
 int work()
 {
-	int ret = 0;
-	for (int i = 0; i &lt; n; i++)
+	int ret = route_num;
+	for (int i = 0; i &lt; node_num; i++)
 	{
-		for (int j = 2; j * f[i] &lt;= f[n - 1] + f[i]; j++)
+		if (train[i])
 		{
-			int temp = *(lower_bound(f, f + n, f[i] * j) - 1);
-			ret = max(ret, temp % f[i]);
+			ret--;
 		}
 	}
 	return ret;
@@ -190,12 +245,12 @@ int work()
 int main()
 {
 	input();
-	sort(f, f + n);
-	n = unique(f, f + n) - f;
+	dijkstra(0);
 	printf("%d\n", work());
 	return 0;
 }
 </code></pre>
+
 
                 <hr>
 
