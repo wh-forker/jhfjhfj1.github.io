@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>487B</title>
+    <title>442B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,19 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>487B</h1>
+                <h1>442B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 28 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 08 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">dynamic programming</span>
+			<span class="label label-default">math</span>
 			
-			<span class="label label-default">two pointers</span>
-			
-			<span class="label label-default">monotonic queue</span>
+			<span class="label label-default">probabilities</span>
 			
 		</div>
 
@@ -131,138 +129,71 @@ document.getElementsByName("search-key-words")[0].value=""}
 
 <h3 id="description">Description</h3>
 <p><br />
-Given a sequence of numbers of length <script type="math/tex">n</script>. (<script type="math/tex">1 \leq n \leq 10^5</script>)
-It require us to split the sequence into several substrip,
-and the difference between the maximum value and minimum value in each strip is no greater than <script type="math/tex">l</script>,
-and the length of each substrip must be greater than <script type="math/tex">s</script>.
-Output the minimal number of strip it could be divided into.
+Give the probabilities of each one in <script type="math/tex">n</script> friends to come up with exactly one problem.
+We should invite a group of friends so that
+the probability for them to up exactly one problem in total is maximized.
 <br /></p>
 
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-Use dynamic programming to solve the problem.
-Let <script type="math/tex">f[i]</script> denote the minimal number of pieces that the first <script type="math/tex">i</script> numbers can be split into.
-<script type="math/tex">g[i]</script> denote the least possible left boarder of substrip whose right border is <script type="math/tex">i</script> which satisfies the condition.
-Then <script type="math/tex">f[i] = min(f[k]) + 1</script>, where <script type="math/tex">g[i] ≤ k ≤ i - l</script>.</p>
+The math deduction process is very complex.
+The easiest way to find the solution to this problem is to use brute force for to discover the patterns in the answer,
+if you cannot discover the pattern by hand.
+The pattern is as follows.
+We should sort the friends by their probabilites from the lowest to the highest.
+The group we choose is always the suffix of this probability array.</p>
 
-<p>One possible way to calculate <script type="math/tex">g[i]</script> is to use monotonic queue which can be done in <script type="math/tex">O(n)</script>.
-But it is hard to implement, since we need to maintain 2 monotonic queues to for the maximal and minimal value,
-especially when it comes to the pop operation.</p>
-
-<p>Here we have a alternative way to do this, multiset.
-Multiset is a STL container which have the same function of STL set,
-however, it can store multiple items of the same value.
-We can insert and erase a element by <script type="math/tex">O(logN)</script>,
-which is slower than the push and pop of monotonic queue which is <script type="math/tex">O(1)</script>.
-Quest any element in multiset (e.g. maximum, minimum) in <script type="math/tex">O(1)</script>. (I cannot believe that)
-It can be used as follows.</p>
-
-<pre><code>multiset&lt;E&gt; m;
-m.insert(a);	//insert a into the multiset
-m.erase(m.lower_bound(a));	//delete a from the multiset
-*m.begin();	//the minimum element
-*(--m.end());	//the maximum element
-</code></pre>
-
-<p>With so easy to access the maximum and minimum,
-we can finish the task of calculating <script type="math/tex">g[i]</script> with a process of two pointers,
-which is to push the right boarder by 1 and to push the left boarder until it satisfies the condition.</p>
-
-<p>We can also use either monotonic queue or multiset to calculate <script type="math/tex">f[i]</script>,
-because its also a task of finding the minimal between the two pointers.
+<p>By the way, the formula for the probability for a group to come up with exactly one problem is <script type="math/tex">P=(\prod\limits_{i=1}^{n}(1-p_i))\times(\sum\limits_{i=1}^{n}\frac{p_i}{1-p_i})</script>.
 <br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;cmath&gt;
-#include &lt;set&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_N 100005
-#define D(x) 
-#define INF 0x3f3f3f3f
+const int MAX_N = 105;
 
-int n, s, max_diff;
-int seq[MAX_N];
-int f[MAX_N], g[MAX_N];
+int n;
+double f[MAX_N];
 
 void input()
 {
-	scanf("%d%d%d", &amp;n, &amp;max_diff, &amp;s);
+	scanf("%d", &amp;n);
 	for (int i = 0; i &lt; n; i++)
 	{
-		scanf("%d", &amp;seq[i]);
+		scanf("%lf", &amp;f[i]);
 	}
 }
 
-int work()
+void work()
 {
-	multiset&lt;int&gt; multi_set;
-	int left = 0;
+	double ans = 0;
+	double sum = 0;
+	double product = 1;
 	for (int i = 0; i &lt; n; i++)
 	{
-		multi_set.insert(seq[i]);
-		while (!multi_set.empty())
+		sum *= 1 - f[i];
+		sum += product * f[i];
+		product *= 1 - f[i];
+		if (sum &gt; ans)
 		{
-			int min_val = *multi_set.begin();
-			int max_val = *(--multi_set.end());
-			D(printf("	min=%d\n", min_val));
-			D(printf("	max=%d\n", max_val));
-			if (max_val - min_val &lt;= max_diff)
-			{
-				break;
-			}
-			D(printf("	left=%d\n", left));
-			multi_set.erase(multi_set.lower_bound(seq[left]));
-			left++;
+			ans = sum;
 		}
-		g[i] = left;
-		D(printf("g[%d]=%d\n", i, g[i]));
 	}
-
-	multi_set.clear();
-	f[0] = 0;
-	for (int i = 0; i &lt; s - 1; i++)
-	{
-		f[i + 1] = INF;
-	}
-	left = -1;
-	for (int i = s - 1; i &lt; n; i++)
-	{
-		D(printf("f[i]=%d\n", f[i]));
-		D(printf("%d\n", i));
-		D(printf("	in:%d\n", i-s));
-		multi_set.insert(f[i - s + 1]);
-		while (left &lt; g[i] - 1 &amp;&amp; left &lt;= i - s)
-		{
-		D(printf("	out:%d\n", left));
-			multi_set.erase(multi_set.lower_bound(f[left + 1]));
-			left++;
-		}
-		if (multi_set.empty())
-		{
-			f[i + 1] = INF;
-			continue;
-		}
-		f[i + 1] = *multi_set.begin() + 1;
-	}
-	if (f[n] &gt;= INF)
-	{
-		return -1;
-	}
-	return f[n];
+	printf("%.12f\n", ans);
 }
 
 int main()
 {
 	input();
-	printf("%d\n", work());
+	sort(f, f + n);
+	reverse(f, f + n);
+	work();
 	return 0;
 }
 </code></pre>
-
 
                 <hr>
 
