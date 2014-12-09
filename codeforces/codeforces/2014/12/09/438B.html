@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>480B</title>
+    <title>438B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>480B</h1>
+                <h1>438B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 01 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 09 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">binary search</span>
+			<span class="label label-default">disjoint sets</span>
 			
 		</div>
 
@@ -125,89 +125,131 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<h3 id="description">Description</h3>
+<p><br />
+Here is a undirected graph with <script type="math/tex">n</script> nodes and <script type="math/tex">m</script> edges.
+(<script type="math/tex">2 \leq n, m \leq 10^5</script>)
+Each node has a weight <script type="math/tex">a_i</script>.
+<script type="math/tex">f(p, q)</script> defines the simple route from <script type="math/tex">p</script> to <script type="math/tex">q</script> with the largest <script type="math/tex">g(x_1~x_t)</script>.
+<script type="math/tex">g(x_1~x_t)</script> defines the weight of the node with the least weight on that simple route.
+Output the average of <script type="math/tex">f(p,q)</script> of all possible pairs of nodes on the graph.
+<br /></p>
+
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-Function “find” in STL set and map can be used to find a element in them in <script type="math/tex">O(logN)</script>. It made them can be used as a hashtable whose query complexity is <script type="math/tex">O(logN)</script> instead of <script type="math/tex">O(1)</script>.
+Sort the nodes with their weights in decreasing order.
+Starting from an empty graph, add the nodes to the graph one by one.
+Each time some components may become connected by the new node added.
+<script type="math/tex">f(p, q)</script> where <script type="math/tex">p</script> and <script type="math/tex">q</script> are in two different components that to be connected by the new node, equals to the weight of the new node.
+Use disjoint sets to work it out.
+Join the components to that new node one by one.
+Add the sum of the <script type="math/tex">f(p,q)</script>s to the answer during each joint.
 <br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<pre><code>#include &lt;vector&gt;
+#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_N 100005
+const int MAX_N = int(1e5) + 10;
 
-int n, mark_len, girl, boy;
-int mark[MAX_N];
+int n, m;
+vector&lt;int&gt; edge[MAX_N];
+pair&lt;int, int&gt; animal[MAX_N];
+bool vis[MAX_N];
 
-void input()
+struct Disjoint_sets
 {
-	scanf("%d%d%d%d", &amp;n, &amp;mark_len, &amp;girl, &amp;boy);
-	for (int i = 0; i &lt; n; i++)
-	{
-		scanf("%d", &amp;mark[i]);
-	}
-}
+	int father[MAX_N];
+	int num[MAX_N];
 
-bool find(int a)
-{
-	int* p = lower_bound(mark, mark + n, a);
-	if (p == mark + n)
-		return false;
-	return a == *p;
-}
+	Disjoint_sets()
+	{}
 
-void work()
-{
-	bool found_boy = false;
-	bool found_girl = false;
-	for (int i = 0; i &lt; n; i++)
+	Disjoint_sets(int n)
 	{
-		found_boy = found_boy || find(mark[i] + boy);
-		found_girl = found_girl || find(mark[i] + girl);
-	}
-	if (found_boy &amp;&amp; found_girl)
-	{
-		puts("0");
-		return;
-	}
-	if (found_boy)
-	{
-		puts("1");
-		printf("%d\n", girl);
-		return;
-	}
-	if (found_girl)
-	{
-		puts("1");
-		printf("%d\n", boy);
-		return;
-	}
-	for (int i = 0; i &lt; n; i++)
-	{
-		if ((find(mark[i] + girl - boy) &amp;&amp; mark[i] + girl &lt;= mark_len) || find(mark[i] + girl + boy))
+		for (int i = 0; i &lt; n; i++)
 		{
-			printf("1\n%d\n", mark[i] + girl);
-			return;
-		}
-		if (find(mark[i] - girl + boy) &amp;&amp; mark[i] - girl &gt;= 0)
-		{
-			printf("1\n%d\n", mark[i] - girl);
-			return;
+			father[i] = i;
+			num[i] = 1;
 		}
 	}
-	printf("2\n%d %d\n", girl, boy);
-}
+
+	int root(int a)
+	{
+		int ret = a;
+		while (father[ret] != ret)
+			ret = father[ret];
+		while (father[a] != a)
+		{
+			int b = a;
+			a = father[a];
+			father[b] = ret;
+		}
+		return ret;
+	}
+
+	void join(int a, int b) // b is the root then
+	{
+		int num_a = num[root(a)];
+		father[root(a)] = father[root(b)];
+		num[root(b)] += num_a;
+	}
+};
+
 
 int main()
 {
-	input();
-	work();
+	//input
+	scanf("%d%d", &amp;n, &amp;m);
+	for (int i = 0; i &lt; n; i++)
+	{
+		int a;
+		scanf("%d", &amp;a);
+		animal[i] = make_pair(a, i);
+	}
+	for (int i = 0; i &lt; m; i++)
+	{
+		int a, b;
+		scanf("%d%d", &amp;a, &amp;b);
+		a--;
+		b--;
+		edge[a].push_back(b);
+		edge[b].push_back(a);
+	}
+
+	//work
+	Disjoint_sets d_sets(n);
+	fill(vis, vis + n, 0);
+	sort(animal, animal + n);
+	long long ans = 0;
+	for (int i = n - 1; i &gt;= 0; i--)
+	{
+		int u = animal[i].second;
+		int min_num = animal[i].first;
+		vis[u] = true;
+		for (int j = 0; j &lt; (int)edge[u].size(); j++)
+		{
+			int v = edge[u][j];
+			if (!vis[v])
+				continue;
+			if (d_sets.root(v) != d_sets.root(u))
+			{
+				ans += 1LL * min_num * d_sets.num[d_sets.root(v)] * d_sets.num[d_sets.root(u)];
+				d_sets.join(v, u);
+			}
+		}
+	}
+
+	double final_ans = ans * 2.0 / n / (n - 1);
+	printf("%.12f\n", final_ans);
 	return 0;
 }
 </code></pre>
+
 
                 <hr>
 
