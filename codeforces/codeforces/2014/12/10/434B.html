@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>487B</title>
+    <title>434B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,19 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>487B</h1>
+                <h1>434B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 28 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 10 Dec 2014</span>
 
 		<div class="pull-right">
 			
 			<span class="label label-default">dynamic programming</span>
 			
-			<span class="label label-default">two pointers</span>
-			
-			<span class="label label-default">monotonic queue</span>
+			<span class="label label-default">implementation</span>
 			
 		</div>
 
@@ -131,134 +129,171 @@ document.getElementsByName("search-key-words")[0].value=""}
 
 <h3 id="description">Description</h3>
 <p><br />
-Given a sequence of numbers of length <script type="math/tex">n</script>. (<script type="math/tex">1 \leq n \leq 10^5</script>)
-It require us to split the sequence into several substrip,
-and the difference between the maximum value and minimum value in each strip is no greater than <script type="math/tex">l</script>,
-and the length of each substrip must be greater than <script type="math/tex">s</script>.
-Output the minimal number of strip it could be divided into.
+A matrix with <script type="math/tex">n</script> rows and <script type="math/tex">m</script> columns consists of 1s and 0s.
+(<script type="math/tex">1 \leq n,m \leq 10^3</script>)
+Now, we have <script type="math/tex">q</script> (<script type="math/tex">1 \leq q \leq 10^3</script>) operations.
+There are two kinds of operations.
+First is to change the value of one point in the matrix (1 to 0 or 0 to 1).
+Second is to query what is the largest space of a rectangle with point (<script type="math/tex">x,y</script>) on its edge.
+The rectangle must be filled with 1s.
 <br /></p>
 
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-Use dynamic programming to solve the problem.
-Let <script type="math/tex">f[i]</script> denote the minimal number of pieces that the first <script type="math/tex">i</script> numbers can be split into.
-<script type="math/tex">g[i]</script> denote the least possible left boarder of substrip whose right border is <script type="math/tex">i</script> which satisfies the condition.
-Then <script type="math/tex">f[i] = min(f[k]) + 1</script>, where <script type="math/tex">g[i] ≤ k ≤ i - l</script>.</p>
+We calculate <script type="math/tex">l[i][j]</script> which is the length of the longest chain of 1s on the right of point (<script type="math/tex">i,j</script>).
+It can be done with <script type="math/tex">O(n^2)</script> or <script type="math/tex">O(nm)</script>.
+For each change we can change <script type="math/tex">l</script> in <script type="math/tex">O(n)</script>.
+For each query we can calculate largest rectangle with the point on its right side in <script type="math/tex">O(n)</script>.</p>
 
-<p>One possible way to calculate <script type="math/tex">g[i]</script> is to use monotonic queue which can be done in <script type="math/tex">O(n)</script>.
-But it is hard to implement, since we need to maintain 2 monotonic queues to for the maximal and minimal value,
-especially when it comes to the pop operation.</p>
+<p>If the point is (<script type="math/tex">x,y</script>),
+we start from the rectangle of a single line from (<script type="math/tex">x-l[x][y],y</script>) to (<script type="math/tex">x,y</script>).
+Then we strech it up and down one unit at a time.
+Of course the left side of the rectangle may be pushed right during the strech.
+In each strech, we choose up if <script type="math/tex">l[x-1][y]</script> is larger than <script type="math/tex">l[x+1][y]</script>.
+Otherwise, we strech down.
+Each time we calculate the space of the rectangle and update the answer.</p>
 
-<p>Here we have a alternative way to do this, multiset.
-Multiset is a STL container which have the same function of STL set,
-however, it can store multiple items of the same value.
-We can insert and erase a element by <script type="math/tex">O(logN)</script>,
-which is slower than the push and pop of monotonic queue which is <script type="math/tex">O(1)</script>.
-Quest any element in multiset (e.g. maximum, minimum) in <script type="math/tex">O(1)</script>. (I cannot believe that)
-It can be used as follows.</p>
-
-<pre><code>multiset&lt;E&gt; m;
-m.insert(a);	//insert a into the multiset
-m.erase(m.lower_bound(a));	//delete a from the multiset
-*m.begin();	//the minimum element
-*(--m.end());	//the maximum element
-</code></pre>
-
-<p>With so easy to access the maximum and minimum,
-we can finish the task of calculating <script type="math/tex">g[i]</script> with a process of two pointers,
-which is to push the right boarder by 1 and to push the left boarder until it satisfies the condition.</p>
-
-<p>We can also use either monotonic queue or multiset to calculate <script type="math/tex">f[i]</script>,
-because its also a task of finding the minimal between the two pointers.
+<p>It is the same when the point is on the left, up and down side of the rectangle.
 <br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;cmath&gt;
-#include &lt;set&gt;
+#include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_N 100005
-#define D(x) 
-#define INF 0x3f3f3f3f
+#define D(x) x
 
-int n, s, max_diff;
-int seq[MAX_N];
-int f[MAX_N], g[MAX_N];
+const int MAX_N = 1050;
+const int MAX_M = 1050;
 
-void input()
+int n, m, q;
+int matrix[MAX_N][MAX_M];
+int l[MAX_M][MAX_N];
+int r[MAX_M][MAX_N];
+int u[MAX_N][MAX_M];
+int d[MAX_N][MAX_M];
+
+void modify(int x, int y)
 {
-	scanf("%d%d%d", &amp;n, &amp;max_diff, &amp;s);
-	for (int i = 0; i &lt; n; i++)
+	matrix[x][y] ^= 1;
+	for (int j = 1; j &lt;= m; j++)
 	{
-		scanf("%d", &amp;seq[i]);
+		if (matrix[x][j] == 1)
+		{
+			l[j][x] = l[j - 1][x] + 1;
+		}else
+		{
+			l[j][x] = 0;
+		}
+	}
+	for (int j = m; j &gt;= 1; j--)
+	{
+		if (matrix[x][j] == 1)
+		{
+			r[j][x] = r[j + 1][x] + 1;
+		}else
+		{
+			r[j][x] = 0;
+		}
+	}
+	for (int i = 1; i &lt;= n; i++)
+	{
+		if (matrix[i][y] == 1)
+		{
+			u[i][y] = u[i - 1][y] + 1;
+		}else
+		{
+			u[i][y] = 0;
+		}
+	}
+	for (int i = n; i &gt;= 1; i--)
+	{
+		if (matrix[i][y] == 1)
+		{
+			d[i][y] = d[i + 1][y] + 1;
+		}else
+		{
+			d[i][y] = 0;
+		}
 	}
 }
 
-int work()
+int query(int f[], int pos, int bound)
 {
-	multiset&lt;int&gt; multi_set;
-	int left = 0;
-	for (int i = 0; i &lt; n; i++)
+	int l = pos;
+	int r = pos;
+	int ret = f[pos];
+	int min_height = f[pos];
+	while (l &gt; 1 || r &lt; bound)
 	{
-		multi_set.insert(seq[i]);
-		while (!multi_set.empty())
+		if (r == bound || f[l - 1] &gt; f[r + 1])
 		{
-			int min_val = *multi_set.begin();
-			int max_val = *(--multi_set.end());
-			D(printf("	min=%d\n", min_val));
-			D(printf("	max=%d\n", max_val));
-			if (max_val - min_val &lt;= max_diff)
-			{
-				break;
-			}
-			D(printf("	left=%d\n", left));
-			multi_set.erase(multi_set.lower_bound(seq[left]));
-			left++;
-		}
-		g[i] = left;
-		D(printf("g[%d]=%d\n", i, g[i]));
-	}
-
-	multi_set.clear();
-	f[0] = 0;
-	for (int i = 0; i &lt; s - 1; i++)
-	{
-		f[i + 1] = INF;
-	}
-	left = -1;
-	for (int i = s - 1; i &lt; n; i++)
-	{
-		D(printf("f[i]=%d\n", f[i]));
-		D(printf("%d\n", i));
-		D(printf("	in:%d\n", i-s));
-		multi_set.insert(f[i - s + 1]);
-		while (left &lt; g[i] - 1 &amp;&amp; left &lt;= i - s)
+			l--;
+			min_height = min(min_height, f[l]);
+		}else
 		{
-		D(printf("	out:%d\n", left));
-			multi_set.erase(multi_set.lower_bound(f[left + 1]));
-			left++;
+			r++;
+			min_height = min(min_height, f[r]);
 		}
-		if (multi_set.empty())
-		{
-			f[i + 1] = INF;
-			continue;
-		}
-		f[i + 1] = *multi_set.begin() + 1;
+		ret = max(ret, (r - l + 1) * min_height);
 	}
-	if (f[n] &gt;= INF)
-	{
-		return -1;
-	}
-	return f[n];
+	return ret;
 }
 
 int main()
 {
-	input();
-	printf("%d\n", work());
+	//input
+	scanf("%d%d%d", &amp;n, &amp;m, &amp;q);
+	for (int i = 1; i &lt;= n; i++)
+		for (int j = 1; j &lt;= m; j++)
+			scanf("%d", matrix[i] + j);
+
+	//prework
+	for (int i = 1; i &lt;= n; i++)
+		for (int j = 1; j &lt;= m; j++)
+		{
+			if (matrix[i][j] == 1)
+			{
+				l[j][i] = l[j - 1][i] + 1;
+				u[i][j] = u[i - 1][j] + 1;
+			}else
+			{
+				l[j][i] = u[i][j] = 0;
+			}
+		}
+
+	for (int i = n; i &gt;= 1; i--)
+		for (int j = m; j &gt;= 1; j--)
+		{
+			if (matrix[i][j] == 1)
+			{
+				r[j][i] = r[j + 1][i] + 1;
+				d[i][j] = d[i + 1][j] + 1;
+			}else
+			{
+				d[i][j] = r[j][i] = 0;
+			}
+		}
+
+	//work
+	while (q--)
+	{
+		int a, x, y;
+		scanf("%d%d%d", &amp;a, &amp;x, &amp;y);
+		if (a == 1)
+		{
+			modify(x, y);
+			continue;
+		}
+		int ans = 0;
+		ans = max(ans, query(l[y], x, n));
+		ans = max(ans, query(r[y], x, n));
+		ans = max(ans, query(u[x], y, m));
+		ans = max(ans, query(d[x], y, m));
+		printf("%d\n", ans);
+	}
 	return 0;
 }
 </code></pre>
