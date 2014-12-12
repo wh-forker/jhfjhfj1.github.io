@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>464B</title>
+    <title>425B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>464B</h1>
+                <h1>425B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 03 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 12 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">brute force</span>
+			<span class="label label-default">greedy</span>
 			
-			<span class="label label-default">dfs</span>
+			<span class="label label-default">enumeration</span>
 			
 		</div>
 
@@ -127,200 +127,128 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<h3 id="description">Description</h3>
+<p><br />
+A matrix with <script type="math/tex">n</script> rows and <script type="math/tex">m</script> columns consists of 1s and 0s.
+(<script type="math/tex">1\leq n,m \leq 100</script>)
+We are asked to change the matrix with less than <script type="math/tex">k</script> operations.
+(<script type="math/tex">1\leq k \leq 10</script>)
+After the change, every connected region is a rectangle.
+Output the minimal number of operations needed.
+<br /></p>
+
 <h3 id="tutorial">Tutorial</h3>
 <p><br />
-We can use the following code to go through all the permutations of an array.</p>
+The final matrix must look like a chess board but with rectangles of 1s and 0s instead of squares of black and white.
+So there is a vector <script type="math/tex">x</script> has <script type="math/tex">n</script> values can serve as a pattern of each column.
+Every column either the same as <script type="math/tex">x</script> or different with <script type="math/tex">x</script> in every value.
+If we found <script type="math/tex">x</script>, we can easily use greedy to decide how many operations we need to change each column into <script type="math/tex">x</script> or its counter part.</p>
 
-<pre><code>sort(array, array + n);
-do
-{} while (next_permutation(array, array + n));
-</code></pre>
+<p>Posit <script type="math/tex">n \leq m</script>.
+There are two situations.
+The first is <script type="math/tex">n > k</script>, which means some columns cannot be modified, since <script type="math/tex">m > k</script> (because <script type="math/tex">n \leq m</script> and <script type="math/tex">n > k</script>).
+If we modify each column, we must use more than <script type="math/tex">k</script> operations which is not allowed.
+So we just enumerate each column as <script type="math/tex">x</script> and calculate the answer.</p>
 
-<p><br /></p>
+<p>The second situation is <script type="math/tex">n \leq k</script>.
+Since <script type="math/tex">k \leq 10</script>, we can just enumerate all the possible <script type="math/tex">x</script> with <script type="math/tex">O(2^n)</script>, and use the same method to calculate the answer.
+<br /></p>
 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
 #include &lt;algorithm&gt;
 using namespace std;
 
-#define zero(x) (((x)&gt;0?(x):-(x))&lt;eps)
-#define eps 1.0E-8
-#define MAX_POINT_NUM 0
-#define D(x)
+const int MAX_N = 110;
+const int MAX_M = 110;
 
-struct Point
+int n, m, opr_num;
+int f[MAX_N][MAX_M];
+int vec[MAX_N];
+
+void make(int bits)
 {
-	int x, y, z;
-
-	Point()
+	int i = 0;
+	while (bits)
 	{
-		x = y = z = 0;
-	}
-
-	Point(int x, int y, int z): x(x), y(y), z(z)
-	{}
-
-	Point operator - (const Point &amp;a) const
-	{
-		return Point(x - a.x, y - a.y, z - a.z);
-	}
-
-	Point operator + (const Point &amp;a) const
-	{
-		return Point(x + a.x, y + a.y, z + a.z);
-	}
-
-	bool operator == (const Point &amp;a) const
-	{
-		return x == a.x &amp;&amp; y == a.y &amp;&amp; z == a.z;
-	}
-}point[10];
-
-long long dot_product(Point a, Point b)
-{
-	return 1LL*a.x * b.x + 1LL*a.y * b.y + 1LL*a.z * b.z;
-}
-
-void input()
-{
-	for (int i = 0; i &lt; 8; i++)
-	{
-		int a, b, c;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		point[i] = Point(a, b, c);
+		vec[i++] = bits &amp; 1;
+		bits &gt;&gt;= 1;
 	}
 }
 
-long long point_dist(Point a)
+int work()
 {
-	return 1LL*a.x * a.x + 1LL*a.y * a.y + 1LL*a.z * a.z;
-}
-
-bool perpendicular(Point a, Point b)
-{
-	return (dot_product(a, b)) == 0;
-}
-
-bool exist(Point a)
-{
-	for (int i = 0; i &lt; 8; i++)
+	int ret = 0;
+	for (int i = 0; i &lt; m; i++)
 	{
-		if (point[i] == a)
+		int same = 0;
+		int diff = 0;
+		for (int j = 0; j &lt; n; j++)
 		{
-			return true;
+			if (vec[j] == f[j][i])
+			{
+				same++;
+			}else
+			{
+				diff++;
+			}
 		}
+		ret += min(same, diff);
 	}
-	return false;
-}
-
-bool is_cube()
-{
-	int num = 0;
-	long long min_val = point_dist(point[0] - point[1]);
-	long long dist_array[10];
-	Point vec[10];
-	for (int i = 1; i &lt; 8; i++)
-	{
-		double temp = point_dist(point[0] - point[i]);
-		dist_array[i] = temp;
-		if ((temp - min_val) &lt; 0)
-		{
-			min_val = temp;
-		}
-	}
-	for (int i = 1; i &lt; 8; i++)
-	{
-		if ((dist_array[i] - min_val) == 0 &amp;&amp; !(point[0] == point[i]))
-		{
-			vec[num++] = point[i] - point[0];
-		}
-	}
-	if (num != 3)
-	{
-		return false;
-	}
-	if (!perpendicular(vec[0], vec[1]))
-	{
-		return false;
-	}
-	if (!perpendicular(vec[0], vec[2]))
-	{
-		return false;
-	}
-	if (!perpendicular(vec[2], vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[2]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[2] + vec[1]))
-	{
-		return false;
-	}
-	if (!exist(point[0] + vec[0] + vec[1] + vec[2]))
-	{
-		return false;
-	}
-	return true;
-}
-
-void output()
-{
-	puts("YES");
-	for (int i = 0; i &lt; 8; i++)
-	{
-		int a = point[i].x;
-		int b = point[i].y;
-		int c = point[i].z;
-		printf("%d %d %d\n", a, b, c);
-	}
-}
-
-void dfs(int depth)
-{
-	if (depth == 8)
-	{
-		if (is_cube())
-		{
-			output();
-			exit(0);
-		}
-		return;
-	}
-	int value[10];
-	Point temp = point[depth];
-	value[0] = point[depth].x;
-	value[1] = point[depth].y;
-	value[2] = point[depth].z;
-	sort(value, value + 3);
-	while (true)
-	{
-		point[depth].x = value[0];
-		point[depth].y = value[1];
-		point[depth].z = value[2];
-		dfs(depth + 1);
-		if (!next_permutation(value, value + 3))
-		{
-			break;
-		}
-	}
-	point[depth] = temp;
+	return ret;
 }
 
 int main()
 {
-	input();
-	dfs(1);
-	puts("NO");
+	//input
+	scanf("%d%d%d", &amp;n, &amp;m, &amp;opr_num);
+	for (int i = 0; i &lt; n; i++)
+	{
+		for (int j = 0; j &lt; m; j++)
+		{
+			if (m &gt; n)
+			{
+				scanf("%d", &amp;f[i][j]);
+			}else
+			{
+				scanf("%d", &amp;f[j][i]);
+			}
+		}
+	}
+	if (n &gt; m)
+	{
+		swap(m, n);
+	}
+
+	//work
+	int ans = n * m;
+	if (n &lt;= opr_num)
+	{
+		for (int i = 0; i &lt; (1 &lt;&lt; n); i++)
+		{
+			make(i);
+			ans = min(ans, work());
+		}
+	}else
+	{
+		for (int i = 0; i &lt; m; i++)
+		{
+			for (int j = 0; j &lt; n; j++)
+			{
+				vec[j] = f[j][i];
+			}
+			ans = min(ans, work());
+		}
+	}
+	if (ans &gt; opr_num)
+	{
+		puts("-1");
+	}else
+	{
+		printf("%d\n", ans);
+	}
 	return 0;
 }
 </code></pre>
