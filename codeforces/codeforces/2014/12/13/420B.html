@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>461B</title>
+    <title>420B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>461B</h1>
+                <h1>420B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 04 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 13 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">tree</span>
-			
-			<span class="label label-default">dynamic programming</span>
+			<span class="label label-default">implementation</span>
 			
 		</div>
 
@@ -127,161 +125,125 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<h3 id="description">Description</h3>
-<p><br />
-A tree has <script type="math/tex">n</script>(<script type="math/tex">1 \leq n \leq 10^5 </script>) vertices, the color of each of which is either black or white.
-Now, we need to split the tree into many parts, each of which has exactly one black vertex.
-Output how many ways to split the tree.
-<br /></p>
-
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
-This is a dynamic programming problem on a tree.
-Define dp[i][j][0] as the number of ways to split the subtree whose root is <script type="math/tex">i</script>,
-and only have its first <script type="math/tex">j</script> subtrees (the subtrees whose roots are <script type="math/tex">i</script>’s direct children),
-just take the other children as not exist,
-and all the vertices in the part which contains vertex <script type="math/tex">i</script> is white.
-(all the other parts in this subtree has exactly one black vertex.)
-Define dp[i][j][1] is the same.
-The only difference is that there is exactly one black vertex in the part contains vertex <script type="math/tex">i</script> is white.
-(all the parts in this subtree has exactly one black vertex.)</p>
-
-<p>dp[i][0][0]=1 and dp[i][0][1]=0 if the root is white,
-otherwise their values are opposite.</p>
-
-<p>dp[i][j][0] = dp[i][j - 1][0] * dp[v][n_v][0];</p>
-
-<p>dp[i][j][1] = dp[i][j - 1][0] * dp[v][n_v][1] + dp[i][j - 1][1] * dp[v][n_v][0];</p>
-
-<p>The two equation above means do not split <script type="math/tex">i</script> and <script type="math/tex">v</script>. (<script type="math/tex">v</script> is <script type="math/tex">i</script>’s <script type="math/tex">j</script>th child. <script type="math/tex">n_v</script> is the number of children <script type="math/tex">v</script> has.)</p>
-
-<p>dp[i][j][0] += dp[i][j - 1][0] * dp[v][n_v][1];</p>
-
-<p>dp[i][j][1] += dp[i][j - 1][1] * dp[v][n_v][1];</p>
-
-<p>The two addition above means we split <script type="math/tex">i</script> and <script type="math/tex">v</script>.
-When calculating dp[x][j][y], we need dp[x][j - 1][y].
-We can delete the second dimension, just replace the old value with the new as <script type="math/tex">j</script> increases is ok.</p>
-
-<p>There are many things I learned from this problem.</p>
-
-<ol>
-  <li>
-    <p>About the defining the max value of n.</p>
-
-    <pre><code> const int MAX_N = int(1e5) + 10;
-</code></pre>
-  </li>
-  <li>
-    <p>Iterating all the scenarios and use conditions to control what to do. The following state transition controll is a good example.</p>
-
-    <pre><code> for (int i = 0; i &lt; 2; i++)
- {
-     for (int j = 0; j &lt; 2; j++)
-     {
-         if (i + j &lt; 2)
-             cur[i + j] = (cur[i + j] + 1LL * last[i] * dp[v][j] % MOD) % MOD;
-         if (j == 1)
-             cur[i] = (cur[i] + 1LL * last[i] * dp[v][j] % MOD) % MOD;
-     }
- }
-</code></pre>
-  </li>
-  <li>
-    <p>A way to controll DFS.</p>
-
-    <pre><code> DFS()
- {
-     for (all the children)
-     {
-         DFS();
-     }
-     do the work();
- }
-</code></pre>
-  </li>
-  <li>
-    <p>The connection of dynamic programming of two different data structures of storing trees.
-One is as a graph.
-The other is “left son right brother”.
-The thought of going through the children one by one and see the past children as a whole is very similar with the thought of DP on “left son right brother”.
-<br /></p>
-  </li>
-</ol>
-
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
-#include &lt;vector&gt;
+<pre><code>#include &lt;cstdlib&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
 using namespace std;
 
-const int MAX_N = int(1e5) + 10;
-const int MOD = int(1e9) + 7;
+#define MAX_MSG_NUM 100005
+#define MAX_PEOPEL_NUM 100005
+#define D(x) 
 
-int n;
-vector&lt;int&gt; edge[MAX_N];
-int color[MAX_N];
-int dp[MAX_N][2]; //0 white, 1 black
+struct Msg
+{
+	int id;
+	bool on;
+}msg[MAX_MSG_NUM];
+
+int people_num, msg_num;
+bool vis[MAX_PEOPEL_NUM];
+bool wait[MAX_PEOPEL_NUM];
+int init_num;
+int ans[MAX_PEOPEL_NUM];
 
 void input()
 {
-	scanf("%d", &amp;n);
-	for (int i = 0; i &lt; n - 1; i++)
+	scanf("%d%d", &amp;people_num, &amp;msg_num);
+	for (int i = 0; i &lt; msg_num; i++)
 	{
-		int p;
-		scanf("%d", &amp;p);
-		edge[i + 1].push_back(p);
-		edge[p].push_back(i + 1);
-	}
-	for (int i = 0; i &lt; n; i++)
-	{
-		scanf("%d", &amp;color[i]);
+		char st[2];
+		int a;
+		scanf("%s%d", st, &amp;a);
+		msg[i].on = (st[0] == '+');
+		msg[i].id = a - 1;
 	}
 }
 
-void dfs(int u, int parent)
+void make_wait()
 {
-	for (vector&lt;int&gt;::iterator it = edge[u].begin(); it != edge[u].end(); it++)
+	memset(vis, 0, sizeof(vis));
+	memset(wait, 0, sizeof(wait));
+	bool did = false;
+	init_num = 0;
+	for (int i = 0; i &lt; msg_num; i++)
 	{
-		int v = *it;
-		if (v == parent)
-			continue;
-		dfs(v, u);
-	}
-
-	vector&lt;int&gt; last(2, 0);
-	last[color[u]] = 1;
-	for (vector&lt;int&gt;::iterator it = edge[u].begin(); it != edge[u].end(); it++)
-	{
-		int v = *it;
-		if (v == parent)
-			continue;
-		vector&lt;int&gt; cur(2, 0);
-		for (int i = 0; i &lt; 2; i++)
+		if (vis[msg[i].id])
 		{
-			for (int j = 0; j &lt; 2; j++)
-			{
-				if (i + j &lt; 2)
-					cur[i + j] = (cur[i + j] + 1LL * last[i] * dp[v][j] % MOD) % MOD;
-				if (j == 1)
-					cur[i] = (cur[i] + 1LL * last[i] * dp[v][j] % MOD) % MOD;
-			}
+			continue;
 		}
-		last = cur;
+		if (!msg[i].on)
+		{
+			wait[msg[i].id] = true;
+			init_num++;
+			did = true;
+		}
+		vis[msg[i].id] = true;
 	}
-
-	for (int i = 0; i &lt; 2; i++)
+	if (!did)
 	{
-		dp[u][i] = last[i];
+		wait[msg[0].id] = true;
 	}
+}
+
+void work()
+{
+	int on_num = init_num;
+	for (int i = 0; i &lt; msg_num; i++)
+	{
+				D(printf("%d %d\n", i, on_num);)
+		if (msg[i].on)
+		{
+			on_num++;
+			if (on_num == 1 &amp;&amp; !wait[msg[i].id])
+			{
+				memset(wait, 0, sizeof(wait));
+			}
+			continue;
+		}
+		on_num--;
+		if (!wait[msg[i].id])
+		{
+			continue;
+		}
+		if (on_num &gt; 0)
+		{
+			wait[msg[i].id] = false;
+		}
+	}
+}
+
+void output()
+{
+	int ans_num = 0;
+	for (int i = 0; i &lt; people_num; i++)
+	{
+		if (wait[i] || !vis[i])
+		{
+			ans[ans_num++] = i + 1;
+			D(printf("i = %d\tans = %d\n", i, ans[ans_num - 1]);)
+		}
+	}
+	printf("%d\n", ans_num);
+	if (ans_num == 0)
+		return;
+	printf("%d", ans[0]);
+	for (int i = 1; i &lt; ans_num; i++)
+	{
+		printf(" %d", ans[i]);
+	}
+	puts("");
 }
 
 int main()
 {
 	input();
-	dfs(0, -1);
-	printf("%d\n", dp[0][1]);
+	make_wait();
+	work();
+	output();
 	return 0;
 }
 </code></pre>
