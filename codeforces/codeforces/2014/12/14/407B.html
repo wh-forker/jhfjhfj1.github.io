@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>468B</title>
+    <title>407B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>468B</h1>
+                <h1>407B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 02 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 14 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">disjoint sets</span>
+			<span class="label label-default">dynamic programming</span>
 			
 		</div>
 
@@ -125,156 +125,44 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<h3 id="description">Description</h3>
-<p><br />
-We have <script type="math/tex">n</script> (<script type="math/tex">1 \leq n \leq 10^5</script>) distinct integers <script type="math/tex">q_1~q_n</script>, <script type="math/tex">a</script> and <script type="math/tex">b</script>.
-There are two sets <script type="math/tex">A</script> and <script type="math/tex">B</script>.
-If <script type="math/tex">x</script> belongs to <script type="math/tex">A</script>, <script type="math/tex">A</script> must also contains <script type="math/tex">a-x</script>.
-It is the same with <script type="math/tex">B</script> and <script type="math/tex">b</script>.
-Output how <script type="math/tex">q</script>s can be divided into the two sets.
-Each <script type="math/tex">q</script> belongs and only belongs to one set.
-<br /></p>
-
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
-If we have number <script type="math/tex">x</script> and <script type="math/tex">a-x</script>, they should be in the same set.
-If <script type="math/tex">x</script> belongs to <script type="math/tex">A</script>, it is obvious that <script type="math/tex">a-x</script> belongs to <script type="math/tex">A</script>.
-If <script type="math/tex">x</script> is not in <script type="math/tex">A</script>, then <script type="math/tex">a-x</script> cannot find its partner in <script type="math/tex">A</script>, so they it cannot be in <script type="math/tex">A</script> any more.
-Therefore, they can only all be in <script type="math/tex">B</script>.
-It is the same as the number x, b - x.</p>
-
-<p>In additon, we should also know that if <script type="math/tex">a-x</script> does not exist, <script type="math/tex">x</script> can only belong to <script type="math/tex">B</script>.
-It is the same as <script type="math/tex">A</script>.</p>
-
-<p>So we can use Disjoint Sets to solve this problem.
-Join the <script type="math/tex">q</script>s that must belongs to one set.
-Join those who must belong to <script type="math/tex">A</script> with a special node.
-Join those who must belong to <script type="math/tex">B</script> with another special node.
-Finally, if the two special nodes are in joined, there is no solution.
-Otherwise, solution exists.</p>
-
-<p>Use STL map to get the positions of <script type="math/tex">a-x</script> and <script type="math/tex">b-x</script>.
-<br /></p>
-
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;map&gt;
-#include &lt;algorithm&gt;
 using namespace std;
 
-#define D(x) 
-#define MAX_N 100005
+const int MAX_N = 1010;
+const int MOD = int(1e9) + 7;
 
-int sum_a, sum_b;
-int f[MAX_N];
 int n;
-
-struct Disjoint_sets
-{
-	int father[MAX_N];
-
-	Disjoint_sets()
-	{}
-
-	Disjoint_sets(int n)
-	{
-		for (int i = 0; i &lt; n; i++)
-		{
-			father[i] = i;
-		}
-	}
-
-	int root(int a)
-	{
-		int ret = a;
-		while (father[ret] != ret)
-			ret = father[ret];
-		while (father[a] != a)
-		{
-			int b = a;
-			a = father[a];
-			father[b] = ret;
-		}
-		return ret;
-	}
-
-	void join(int a, int b)
-	{
-		father[root(a)] = father[root(b)];
-	}
-}d_set;
-
-void input()
-{
-	scanf("%d%d%d", &amp;n, &amp;sum_a, &amp;sum_b);
-	for (int i = 0; i &lt; n; i++)
-	{
-		scanf("%d", &amp;f[i]);
-	}
-}
-
-bool work()
-{
-	d_set = Disjoint_sets(n + 2);
-	map&lt;int, int&gt; pos;
-	for (int i = 0; i &lt; n; i++)
-	{
-		pos[f[i]] = i;
-	}
-	for (int i = 0; i &lt; n; i++)
-	{
-		if (pos.find(sum_a - f[i]) != pos.end())
-		{
-			d_set.join(i, pos[sum_a - f[i]]);
-		}else
-		{
-			d_set.join(i, n);
-		}
-		if (pos.find(sum_b - f[i]) != pos.end())
-		{
-			d_set.join(i, pos[sum_b - f[i]]);
-		}else
-		{
-			d_set.join(i, n + 1);
-		}
-	}
-	return d_set.root(n) != d_set.root(n + 1);
-}
-
-void output()
-{
-	puts("YES");
-	for (int i = 0; i &lt; n; i++)
-	{
-		if (i != 0)
-		{
-			putchar(' ');
-		}
-		if (d_set.root(i) == d_set.root(n))
-		{
-			putchar('1');
-		}else
-		{
-			putchar('0');
-		}
-	}
-}
+int back[MAX_N];
+int f[MAX_N][MAX_N];
 
 int main()
 {
-	input();
-	if (!work())
+	//input
+	scanf("%d", &amp;n);
+	for (int i = 1; i &lt;= n; i++)
 	{
-		puts("NO");
-	}else
-	{
-		output();
+		scanf("%d", &amp;back[i]);
 	}
+
+	//work
+	for (int i = 2; i &lt;= n + 1; i++)
+	{
+		for (int j = i - 1; j &gt;= 1; j--)
+		{
+			f[j][i] = 0;
+			f[j][i] = (f[j][i] + f[j][i - 1]) % MOD;
+			f[j][i] = (f[j][i] + f[back[i - 1]][i - 1]) % MOD;
+			f[j][i] = (f[j][i] + 2) % MOD;
+		}
+	}
+	printf("%d\n", f[1][n + 1]);
 	return 0;
 }
 </code></pre>
+
 
                 <hr>
 
