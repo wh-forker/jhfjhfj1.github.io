@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>418B</title>
+    <title>406B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>418B</h1>
+                <h1>406B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 13 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 15 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">dynamic programming</span>
-			
-			<span class="label label-default">bitmasks</span>
+			<span class="label label-default">implementation</span>
 			
 		</div>
 
@@ -131,66 +129,79 @@ document.getElementsByName("search-key-words")[0].value=""}
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
 using namespace std;
 
-const int MAX_N = 110;
-const int MAX_M = 20;
-const long long INF = (1LL &lt;&lt; 60);
+const int MAX_S = int(1e6) + 20;
+const int s = int(1e6);
 
-struct Elem
+bool f[MAX_S];
+int ans[MAX_S];
+int ans_num;
+int add_num;
+bool first = true;
+int n;
+
+void output(int a)
 {
-	Elem()
-	{}
-
-	Elem(int ruble, int monitor, int prob):ruble(ruble), monitor(monitor), prob(prob)
-	{}
-
-	int ruble, monitor, prob;
-
-	bool operator &lt; (const Elem &amp;b) const
+	if (first)
 	{
-		return monitor &lt; b.monitor;
+		first = false;
+	}else
+	{
+		putchar(' ');
 	}
-}elem[MAX_N];
-
-int n, m, price;
-long long f[1 &lt;&lt; MAX_M];
+	printf("%d", a);
+}
 
 int main()
 {
 	//input
-	scanf("%d%d%d", &amp;n, &amp;m, &amp;price);
+	scanf("%d", &amp;n);
 	for (int i = 0; i &lt; n; i++)
 	{
-		int a, b, c, d, e = 0;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		for (int j = 0; j &lt; c; j++)
-		{
-			scanf("%d", &amp;d);
-			d--;
-			e = e | (1 &lt;&lt; d);
-		}
-		elem[i] = Elem(a, b, e);
+		int a;
+		scanf("%d", &amp;a);
+		f[a] = true;
 	}
 
 	//work
-	long long ans = INF;
-	sort(elem, elem + n);
-	fill(f, f + (1 &lt;&lt; m), INF);
-	f[0] = 0;
-	for (int i = 0; i &lt; n; i++)
+	ans_num = 0;
+	add_num = 0;
+	for (int i = 1; i &lt;= (s + 1) / 2; i++)
 	{
-		for (int j = 0; j &lt; (1 &lt;&lt; m); j++)
+		int a = s - i + 1;
+		if (f[i] &amp;&amp; f[a])
 		{
-			f[j | elem[i].prob] = min(f[j | elem[i].prob], f[j] + elem[i].ruble);
+			add_num++;
+		}else if (f[i] || f[a])
+		{
+			if (f[i])
+			{
+				ans[ans_num++] = a;
+			}else
+			{
+				ans[ans_num++] = i;
+			}
 		}
-		ans = min(ans, f[(1 &lt;&lt; m) - 1] + 1LL * price * elem[i].monitor);
 	}
-	if (ans == INF)
-		puts("-1");
-	else
-		printf("%I64d\n", ans);
+
+	//output
+	printf("%d\n", ans_num + add_num * 2);
+	for (int i = 1; i &lt;= (s + 1) / 2 &amp;&amp; add_num; i++)
+	{
+		int a = s - i + 1;
+		if (!f[i] &amp;&amp; !f[a])
+		{
+			output(i);
+			output(a);
+			add_num--;
+		}
+	}
+
+	for (int i = 0; i &lt; ans_num; i++)
+	{
+		output(ans[i]);
+	}
 	return 0;
 }
 </code></pre>
