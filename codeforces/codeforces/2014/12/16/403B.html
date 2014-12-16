@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>407B</title>
+    <title>403B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>407B</h1>
+                <h1>403B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 14 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 16 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">dynamic programming</span>
+			<span class="label label-default">greedy</span>
+			
+			<span class="label label-default">number theory</span>
 			
 		</div>
 
@@ -129,36 +131,99 @@ document.getElementsByName("search-key-words")[0].value=""}
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
-const int MAX_N = 1010;
-const int MOD = int(1e9) + 7;
+#define D(x) 
 
-int n;
-int back[MAX_N];
-int f[MAX_N][MAX_N];
+const int MAX_N = int(1e4);
+const int MAX_M = int(1e4);
+
+int n, m;
+int value[MAX_M];
+int bad[MAX_N];
+int gcd_array[MAX_N];
+
+int gcd(int a,int b){
+    if (a==0) return 1;
+    if (a&lt;0) return gcd(-a,b);
+    while (b){
+	int t=a%b; a=b; b=t;
+    }
+    return a;
+}
+
+bool is_bad(int a)
+{
+	return a == *lower_bound(bad, bad + m, a);
+}
+
+int cal(int a)
+{
+	D(printf("%d ", a));
+	int ret = 0;
+	for (int i = 2; i * i &lt;= a; i++)
+	{
+		while (a % i == 0)
+		{
+			if (is_bad(i))
+				ret--;
+			else
+				ret++;
+			a /= i;
+		}
+	}
+	if (a == 1)
+	{
+		D(printf("%d\n", ret));
+		return ret;
+	}
+	if (is_bad(a))
+		ret--;
+	else
+		ret++;
+	D(printf("%d\n", ret));
+	return ret;
+}
 
 int main()
 {
 	//input
-	scanf("%d", &amp;n);
-	for (int i = 1; i &lt;= n; i++)
+	scanf("%d%d", &amp;n, &amp;m);
+	for (int i = 0; i &lt; n; i++)
 	{
-		scanf("%d", &amp;back[i]);
+		scanf("%d", &amp;value[i]);
+	}
+	for (int i = 0; i &lt; m; i++)
+	{
+		scanf("%d", &amp;bad[i]);
 	}
 
 	//work
-	for (int i = 2; i &lt;= n + 1; i++)
+	int temp = value[0];
+	for (int i = 0; i &lt; n; i++)
 	{
-		for (int j = i - 1; j &gt;= 1; j--)
-		{
-			f[j][i] = 0;
-			f[j][i] = (f[j][i] + f[j][i - 1]) % MOD;
-			f[j][i] = (f[j][i] + f[back[i - 1]][i - 1]) % MOD;
-			f[j][i] = (f[j][i] + 2) % MOD;
-		}
+		temp = gcd(temp, value[i]);
+		gcd_array[i] = temp;
 	}
-	printf("%d\n", f[1][n + 1]);
+	temp = 1;
+	for (int i = n - 1; i &gt;= 0; i--)
+	{
+		if (cal(gcd_array[i] / temp) &lt; 0)
+		{
+			temp = gcd_array[i];
+		}
+		value[i] /= temp;
+	}
+
+	int ans = 0;
+	for (int i = 0; i &lt; n; i++)
+	{
+		ans += cal(value[i]);
+	}
+	printf("%d\n", ans);
 	return 0;
 }
 </code></pre>
