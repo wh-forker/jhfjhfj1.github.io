@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>407B</title>
+    <title>398B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,17 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>407B</h1>
+                <h1>398B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 14 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 18 Dec 2014</span>
 
 		<div class="pull-right">
 			
 			<span class="label label-default">dynamic programming</span>
+			
+			<span class="label label-default">probability</span>
 			
 		</div>
 
@@ -125,40 +127,98 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<h3 id="description">Description</h3>
+<p><br />
+We choose a grid in a <script type="math/tex">n\times n</script> matrix with uniform probability.
+If the grid is already painted, we do nothing.
+Otherwise, we paint it.
+Repeat this operation until every row and every column has at least one painted grid.
+Output the expectation of the times to choose grid.
+(<script type="math/tex">1 \leq n \leq 2000</script>)
+In addition, there are some already painted grids are given in the input.
+<br /></p>
+
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
+<script type="math/tex">f_{i,j}</script> means the expectation to paint the empty sub-matrix of <script type="math/tex">i\times j</script> 
+(all other rows and columns have painted grids except these <script type="math/tex">i</script> rows and <script type="math/tex">j</script> columns)
+in a matrix of <script type="math/tex">n\times n</script>.
+Then <script type="math/tex">f_{i,j}</script> can be calculated by its sub-problems according to which grid we choose as the next one to paint.</p>
+
+<script type="math/tex; mode=display">f_{i,j}=1
++\frac{i\times j}{n\times n}f_{i-1,j-1}
++\frac{i\times (n - j)}{n\times n}f_{i-1,j}
++\frac{(n-i)\times j}{n\times n}f_{i,j-1}
++\frac{(n-i)\times (n-j)}{n\times n}f_{i,j}</script>
+
+<p>Solve this equation, we can get another equation as follows, which is the status transition equation.</p>
+
+<script type="math/tex; mode=display">f_{i,j}=\frac{1
++\frac{i\times j}{n\times n}f_{i-1,j-1}
++\frac{i\times (n - j)}{n\times n}f_{i-1,j}
++\frac{(n-i)\times j}{n\times n}f_{i,j-1}}
+{1-\frac{(n-i)\times (n-j)}{n\times n}}</script>
+
+<p>Use it to solve this problem.</p>
+
+<p>From this problem, I learned that in dynamic programming, sometimes we need to solve a equation to get the status transition equation.
+In dynamic programming, the order of solving each sub-problem can be the same as it is in real life, however, it can also be reverse.
+For example, in this problem, the smallest sub-problem $$f_{i,j} is the first to calculate in dynamic programming, but the last one to paint in real life.
+<br /></p>
+
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
 using namespace std;
 
-const int MAX_N = 1010;
-const int MOD = int(1e9) + 7;
+const int MAX_N = 2 * int(1e3) + 10;
+const int MAX_M = 2 * int(1e4) + 10;
 
-int n;
-int back[MAX_N];
-int f[MAX_N][MAX_N];
+int n, m;
+bool row_occupied[MAX_N], col_occupied[MAX_N];
+int row_occupied_num, col_occupied_num; 
+double f[MAX_N][MAX_N];
+
+void make(bool *occupied, int &amp;occupied_num, int x)
+{
+	if (occupied[x])
+	{
+		return;
+	}
+	occupied[x] = true;
+	occupied_num++;
+}
 
 int main()
 {
 	//input
-	scanf("%d", &amp;n);
+	scanf("%d%d", &amp;n, &amp;m);
+	for (int i = 0; i &lt; m; i++)
+	{
+		int a, b;
+		scanf("%d%d", &amp;a, &amp;b);
+		make(row_occupied, row_occupied_num, a);
+		make(col_occupied, col_occupied_num, b);
+	}
+	f[0][0] = 0;
 	for (int i = 1; i &lt;= n; i++)
 	{
-		scanf("%d", &amp;back[i]);
+		f[i][0] = f[i - 1][0] + 1.0 * n / i;
+		f[0][i] = f[0][i - 1] + 1.0 * n / i;
 	}
-
-	//work
-	for (int i = 2; i &lt;= n + 1; i++)
+	for (int i = 1; i &lt;= n - row_occupied_num; i++)
 	{
-		for (int j = i - 1; j &gt;= 1; j--)
+		for (int j = 1; j &lt;= n - col_occupied_num; j++)
 		{
-			f[j][i] = 0;
-			f[j][i] = (f[j][i] + f[j][i - 1]) % MOD;
-			f[j][i] = (f[j][i] + f[back[i - 1]][i - 1]) % MOD;
-			f[j][i] = (f[j][i] + 2) % MOD;
+			f[i][j] = 1;
+			f[i][j] += f[i - 1][j - 1] * i * j / n / n;
+			f[i][j] += f[i - 1][j] * i * (n - j) / n / n;
+			f[i][j] += f[i][j - 1] * (n - i) * j / n / n;
+			f[i][j] /= 1 - 1.0 * (n - i) * (n - j) / n / n;
 		}
 	}
-	printf("%d\n", f[1][n + 1]);
+	printf("%.12f\n", f[n - row_occupied_num][n - col_occupied_num]);
 	return 0;
 }
 </code></pre>
