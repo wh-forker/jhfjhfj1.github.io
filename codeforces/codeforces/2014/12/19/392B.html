@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>480B</title>
+    <title>392B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>480B</h1>
+                <h1>392B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 01 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 19 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">binary search</span>
+			<span class="label label-default">dynamic programming</span>
 			
 		</div>
 
@@ -125,11 +125,6 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
-Function “find” in STL set and map can be used to find a element in them in <script type="math/tex">O(logN)</script>. It made them can be used as a hashtable whose query complexity is <script type="math/tex">O(logN)</script> instead of <script type="math/tex">O(1)</script>.
-<br /></p>
-
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
@@ -137,77 +132,39 @@ Function “find” in STL set and map can be used to find a element in them in 
 #include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_N 100005
+const int MAX_N = 50;
 
-int n, mark_len, girl, boy;
-int mark[MAX_N];
-
-void input()
-{
-	scanf("%d%d%d%d", &amp;n, &amp;mark_len, &amp;girl, &amp;boy);
-	for (int i = 0; i &lt; n; i++)
-	{
-		scanf("%d", &amp;mark[i]);
-	}
-}
-
-bool find(int a)
-{
-	int* p = lower_bound(mark, mark + n, a);
-	if (p == mark + n)
-		return false;
-	return a == *p;
-}
-
-void work()
-{
-	bool found_boy = false;
-	bool found_girl = false;
-	for (int i = 0; i &lt; n; i++)
-	{
-		found_boy = found_boy || find(mark[i] + boy);
-		found_girl = found_girl || find(mark[i] + girl);
-	}
-	if (found_boy &amp;&amp; found_girl)
-	{
-		puts("0");
-		return;
-	}
-	if (found_boy)
-	{
-		puts("1");
-		printf("%d\n", girl);
-		return;
-	}
-	if (found_girl)
-	{
-		puts("1");
-		printf("%d\n", boy);
-		return;
-	}
-	for (int i = 0; i &lt; n; i++)
-	{
-		if ((find(mark[i] + girl - boy) &amp;&amp; mark[i] + girl &lt;= mark_len) || find(mark[i] + girl + boy))
-		{
-			printf("1\n%d\n", mark[i] + girl);
-			return;
-		}
-		if (find(mark[i] - girl + boy) &amp;&amp; mark[i] - girl &gt;= 0)
-		{
-			printf("1\n%d\n", mark[i] - girl);
-			return;
-		}
-	}
-	printf("2\n%d %d\n", girl, boy);
-}
+int cost[3][3];
+long long f[MAX_N][3][3];
+int n;
 
 int main()
 {
-	input();
-	work();
+	//input
+	for (int i = 0; i &lt; 3; i++)
+		for (int j = 0; j &lt; 3; j++)
+			scanf("%d", &amp;cost[i][j]);
+	scanf("%d", &amp;n);
+	//work
+	for (int i = 1; i &lt;= n; i++)
+	{
+		for (int j = 0; j &lt; 3; j++)
+		{
+			for (int k = 0; k &lt; 3; k++)
+			{
+				if (j == k)
+					continue;
+				int x = 3 - j - k;
+				f[i][j][k] = f[i - 1][j][x] + cost[j][k] + f[i - 1][x][k];
+				f[i][j][k] = min(f[i][j][k], f[i - 1][j][k] + cost[j][x] + f[i - 1][k][j] + cost[x][k] + f[i - 1][j][k]);
+			}
+		}
+	}
+	printf("%I64d\n", f[n][0][2]);
 	return 0;
 }
 </code></pre>
+
 
                 <hr>
 
