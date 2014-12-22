@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>482B</title>
+    <title>388B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,15 +107,15 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>482B</h1>
+                <h1>388B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 29 Nov 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 22 Dec 2014</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">consecutive algorithms</span>
+			<span class="label label-default">constructive algorithms</span>
 			
 		</div>
 
@@ -129,119 +129,69 @@ document.getElementsByName("search-key-words")[0].value=""}
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
 using namespace std;
 
-#define MAX_M 100005
-#define MAX_N 100005
-#define MAX_BIT_NUM 40
-#define D(x) x
+#define D(x) 
 
-struct Condition
+const int MAX_N = 100;
+
+int num;
+bool ans[MAX_N][MAX_N];
+
+void connect(int a, int b)
 {
-	int l, r, q;
-}condition[MAX_M];
-
-int n, m;
-int seq[MAX_N][MAX_BIT_NUM];
-int delta[MAX_N][MAX_BIT_NUM];
-int sum[MAX_N][MAX_BIT_NUM];
-
-void input()
-{
-	scanf("%d%d", &amp;n, &amp;m);
-	for (int i = 0; i &lt; m; i++)
-	{
-		int a, b, c;
-		scanf("%d%d%d", &amp;a, &amp;b, &amp;c);
-		condition[i].l = a;
-		condition[i].r = b;
-		condition[i].q = c;
-	}
-}
-
-int get_bit(int l, int r, int pos)
-{
-	int temp = sum[r][pos] - sum[l - 1][pos] - (r - l + 1);
-	if (temp == 0)
-		return 1;
-	return 0;
-}
-
-int work()
-{
-	for (int i = 0; i &lt; m; i++)
-	{
-		int q = condition[i].q;
-		for (int j = 0; q; q &gt;&gt;= 1, j++)
-		{
-			if (q &amp; 1)
-			{
-				delta[condition[i].l][j] += 1;
-				delta[condition[i].r + 1][j] += -1;
-			}
-		}
-	}
-
-	int temp[MAX_BIT_NUM];
-	fill(temp, temp + MAX_BIT_NUM, 0);
-	for (int i = 1; i &lt;= n; i++)
-	{
-		for (int j = 0; j &lt; MAX_BIT_NUM; j++)
-		{
-			temp[j] += delta[i][j];
-			if (temp[j])
-			{
-				seq[i][j] = 1;
-			}
-			sum[i][j] = sum[i - 1][j] + seq[i][j];
-		}
-	}
-
-	for (int i = 0; i &lt; m; i++)
-	{
-		int q = condition[i].q;
-		for (int j = 0; j &lt;= 30; j++, q &gt;&gt;= 1)
-		{
-			if (get_bit(condition[i].l, condition[i].r, j) != (q &amp; 1))
-			{
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-int get_value(int pos)
-{
-	int ret = 0;
-	for (int i = 30; i &gt;= 0; i--)
-	{
-		ret = (ret &lt;&lt; 1) + seq[pos][i];
-	}
-	return ret;
-}
-
-void output()
-{
-	printf("%d", get_value(1));
-	for (int i = 2; i &lt;= n; i++)
-	{
-		printf(" %d", get_value(i));
-	}
-	puts("");
+	ans[a][b] = ans[b][a] = true;
 }
 
 int main()
 {
-	input();
-	if (work())
+	//init
+	connect(1, 3);
+	connect(1, 4);
+	for (int i = 1; i &lt; 30; i++)
 	{
-		puts("YES");
-		output();
-	}else
+		connect(i * 2 + 1, i * 2 + 3);
+		connect(i * 2 + 1, i * 2 + 4);
+		connect(i * 2 + 2, i * 2 + 3);
+		connect(i * 2 + 2, i * 2 + 4);
+	}
+	for (int i = 1; i &lt;= 30; i++)
 	{
-		puts("NO");
+		connect(62 + i, 63 + i);
+	}
+	connect(93, 2);
+
+	//input
+	scanf("%d", &amp;num);
+
+	//work
+	int temp = 0;
+	while (num &gt; 0)
+	{
+		if (num &amp; 1)
+		{
+			connect(temp * 2 + 1, 63 + temp);
+			if (temp != 0)
+			{
+				connect(temp * 2 + 2, 63 + temp);
+			}
+		}
+		temp++;
+		num &gt;&gt;= 1;
+	}
+
+	//output
+	printf("%d\n", 93);
+	for (int i = 1; i &lt;= 93; i++)
+	{
+		for (int j = 1; j &lt;= 93; j++)
+		{
+			if (ans[i][j])
+				putchar('Y');
+			else
+				putchar('N');
+		}
+		putchar('\n');
 	}
 	return 0;
 }
