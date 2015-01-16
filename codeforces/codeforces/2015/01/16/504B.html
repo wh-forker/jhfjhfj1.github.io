@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>403B</title>
+    <title>504B</title>
 
     <!-- Bootstrap Core  -->
     <link href="../../../../../css/bootstrap.min.css" rel="stylesheet">
@@ -107,17 +107,19 @@ document.getElementsByName("search-key-words")[0].value=""}
 
                 <!-- Title -->
 		
-                <h1>403B</h1>
+                <h1>504B</h1>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 16 Dec 2014</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 16 Jan 2015</span>
 
 		<div class="pull-right">
 			
-			<span class="label label-default">greedy</span>
+			<span class="label label-default">combinatorial mathematics</span>
 			
-			<span class="label label-default">number theory</span>
+			<span class="label label-default">data structures</span>
+			
+			<span class="label label-default">binary indexed tree</span>
 			
 		</div>
 
@@ -127,107 +129,154 @@ document.getElementsByName("search-key-words")[0].value=""}
 		<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<h3 id="description">Description</h3>
+<p><br />
+Give you two permutations of <script type="math/tex">n</script> integers of <script type="math/tex">0</script> to <script type="math/tex">n - 1</script>.
+(<script type="math/tex">1 \leq n \leq 2\times 10^5</script>).
+Posit they are the <script type="math/tex">a</script>th and <script type="math/tex">b</script>th permutation.
+Output the <script type="math/tex">(a + b) \% n</script>th permutation.
+<br /></p>
+
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
+With the thought of dynamic programming, we can come up with the formula of calculating the rank of a permutation, which is as follows.
+<script type="math/tex">rank = \sum\limits_{i=1}^{n}{less(p_i) \times (n - i)!}</script>.
+<script type="math/tex">p_i</script> is the <script type="math/tex">i</script>th number in the permutation.
+<script type="math/tex">less(p_i)</script> means the number of <script type="math/tex">p_j</script> which is less than <script type="math/tex">p_i</script> and <script type="math/tex">j</script> is greater than <script type="math/tex">i</script>, which can be calculated by binary indexed tree.
+With this formula we can calculate <script type="math/tex">a+b</script> like we add two big integers.
+<script type="math/tex">less(p_i)</script>s are the digits of the big integers.
+We need to do the carry bit.</p>
+
+<p>After that we have the <script type="math/tex">a+b</script> and we need to transform it back to the <script type="math/tex">a + b</script>th permutation,
+which can be done by binary indexed tree and binary search.
+<br /></p>
+
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
 <pre><code>#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
-#include &lt;cmath&gt;
-#include &lt;cstring&gt;
 using namespace std;
 
 #define D(x) 
 
-const int MAX_N = int(1e4);
-const int MAX_M = int(1e4);
+const int MAX_N = (int)(1e5) * 2 + 10;
 
-int n, m;
-int value[MAX_M];
-int bad[MAX_N];
-int gcd_array[MAX_N];
+int n;
+int a[MAX_N];
+int b[MAX_N];
+int sum_b[MAX_N];
+int sum_a[MAX_N];
+int c[MAX_N];
+int sum_c[MAX_N];
 
-int gcd(int a,int b){
-    if (a==0) return 1;
-    if (a&lt;0) return gcd(-a,b);
-    while (b){
-	int t=a%b; a=b; b=t;
-    }
-    return a;
+int binary_indexed_tree[MAX_N];
+
+int low_bit(int x)
+{
+	return x &amp; (-x);
 }
 
-bool is_bad(int a)
+void add(int pos, int val)
 {
-	return a == *lower_bound(bad, bad + m, a);
+	for (int i = pos; i &lt; MAX_N; i += low_bit(i))
+	{
+		binary_indexed_tree[i] += val;
+	}
 }
 
-int cal(int a)
+int sum(int pos)
 {
-	D(printf("%d ", a));
 	int ret = 0;
-	for (int i = 2; i * i &lt;= a; i++)
+	for (int i = pos; i &gt; 0; i -= low_bit(i))
 	{
-		while (a % i == 0)
-		{
-			if (is_bad(i))
-				ret--;
-			else
-				ret++;
-			a /= i;
-		}
+		ret += binary_indexed_tree[i];
 	}
-	if (a == 1)
-	{
-		D(printf("%d\n", ret));
-		return ret;
-	}
-	if (is_bad(a))
-		ret--;
-	else
-		ret++;
-	D(printf("%d\n", ret));
 	return ret;
+}
+
+void input(int a[])
+{
+	for (int i = 1; i &lt;= n; i++)
+	{
+		scanf("%d", &amp;a[i]);
+		a[i]++;
+	}
+}
+
+void work(int sum_a[], int a[])
+{
+	fill(binary_indexed_tree, binary_indexed_tree + n + 1, 0);
+	for (int i = n; i; i--)
+	{
+		sum_a[i] = sum(a[i]);
+		add(a[i], 1);
+	}
+}
+
+bool ok(int mid, int a)
+{
+	return sum(mid) &gt;= a;
+}
+
+int binary_search(int start, int end, int a)
+{
+	int l = start;
+	int r = end;
+	while (l &lt; r)
+	{
+		int mid = (l + r) / 2;
+		if (ok(mid, a))
+			r = mid;
+		else
+			l = mid + 1;
+	}
+	return l;
 }
 
 int main()
 {
 	//input
-	scanf("%d%d", &amp;n, &amp;m);
-	for (int i = 0; i &lt; n; i++)
-	{
-		scanf("%d", &amp;value[i]);
-	}
-	for (int i = 0; i &lt; m; i++)
-	{
-		scanf("%d", &amp;bad[i]);
-	}
+	scanf("%d", &amp;n);
+	input(a);
+	input(b);
 
 	//work
-	int temp = value[0];
-	for (int i = 0; i &lt; n; i++)
+	work(sum_a, a);
+	work(sum_b, b);
+	for (int i = 1; i &lt;= n; i++)
 	{
-		temp = gcd(temp, value[i]);
-		gcd_array[i] = temp;
+		sum_c[i] = sum_a[i] + sum_b[i];
 	}
-	temp = 1;
-	for (int i = n - 1; i &gt;= 0; i--)
+	for (int i = n; i; i--)
 	{
-		if (cal(gcd_array[i] / temp) &lt; 0)
+		if (sum_c[i] &gt; n - i)
 		{
-			temp = gcd_array[i];
+			sum_c[i] -= n - i + 1;
+			sum_c[i - 1] += 1;
 		}
-		value[i] /= temp;
 	}
-
-	int ans = 0;
-	for (int i = 0; i &lt; n; i++)
+	fill(binary_indexed_tree, binary_indexed_tree + n + 1, 0);
+	for (int i = 1; i &lt;= n; i++)
+		add(i, 1);
+	for (int i = 1; i &lt;= n; i++)
 	{
-		ans += cal(value[i]);
+		c[i] = binary_search(1, n, sum_c[i] + 1);
+		add(c[i], -1);
 	}
-	printf("%d\n", ans);
+	D(for (int i = 1; i &lt;4; i++) printf("%d\n", sum_c[i]));
+
+	//output
+	for (int i = 1; i &lt;= n; i++)
+	{
+		printf("%d", c[i] - 1);
+		if (i != n)
+			putchar(' ');
+	}
+	puts("");
 	return 0;
 }
 </code></pre>
-
 
                 <hr>
 
