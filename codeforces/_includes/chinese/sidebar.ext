@@ -1,3 +1,0 @@
-{% include chinese/profile.ext %}
-{% include search.ext %}
-{% include chinese/highlight.ext %}

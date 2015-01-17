@@ -1,8 +1,0 @@
-<ul class="pagination pagination-sm">
-{% if paginator.total_pages < 8 %}
-	{% include pagination/pagination_short.ext %}
-{% else %}
-	{% include pagination/pagination_long.ext %}
-{% endif %}
-</ul>
-

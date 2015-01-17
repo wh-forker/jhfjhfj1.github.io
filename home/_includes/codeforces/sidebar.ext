@@ -1,3 +1,0 @@
-{% include codeforces/profile.ext %}
-{% include search.ext %}
-{% include codeforces/tasks.ext %}
