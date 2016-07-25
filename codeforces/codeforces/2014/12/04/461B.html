@@ -194,15 +194,15 @@
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<h3 id="description">Description</h3>
-<p><br />
+		<p>###Description<br />
+<br />
 A tree has <script type="math/tex">n</script>(<script type="math/tex">1 \leq n \leq 10^5</script>) vertices, the color of each of which is either black or white.
 Now, we need to split the tree into many parts, each of which has exactly one black vertex.
 Output how many ways to split the tree.
 <br /></p>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
+<p>###Tutorial<br />
+<br />
 This is a dynamic programming problem on a tree.
 Define dp[i][j][0] as the number of ways to split the subtree whose root is <script type="math/tex">i</script>,
 and only have its first <script type="math/tex">j</script> subtrees (the subtrees whose roots are <script type="math/tex">i</script>’s direct children),
@@ -236,13 +236,14 @@ We can delete the second dimension, just replace the old value with the new as <
   <li>
     <p>About the defining the max value of n.</p>
 
-    <pre><code> const int MAX_N = int(1e5) + 10;
+    <div class="highlighter-rouge"><pre class="highlight"><code> const int MAX_N = int(1e5) + 10;
 </code></pre>
+    </div>
   </li>
   <li>
     <p>Iterating all the scenarios and use conditions to control what to do. The following state transition controll is a good example.</p>
 
-    <pre><code> for (int i = 0; i &lt; 2; i++)
+    <div class="highlighter-rouge"><pre class="highlight"><code> for (int i = 0; i &lt; 2; i++)
  {
      for (int j = 0; j &lt; 2; j++)
      {
@@ -253,11 +254,12 @@ We can delete the second dimension, just replace the old value with the new as <
      }
  }
 </code></pre>
+    </div>
   </li>
   <li>
     <p>A way to controll DFS.</p>
 
-    <pre><code> DFS()
+    <div class="highlighter-rouge"><pre class="highlight"><code> DFS()
  {
      for (all the children)
      {
@@ -266,6 +268,7 @@ We can delete the second dimension, just replace the old value with the new as <
      do the work();
  }
 </code></pre>
+    </div>
   </li>
   <li>
     <p>The connection of dynamic programming of two different data structures of storing trees.
@@ -276,10 +279,10 @@ The thought of going through the children one by one and see the past children a
   </li>
 </ol>
 
-<h3 id="solution">Solution</h3>
-<p><br /></p>
+<p>###Solution<br />
+<br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;vector&gt;
 using namespace std;
 
@@ -352,6 +355,7 @@ int main()
 	return 0;
 }
 </code></pre>
+</div>
 
 		</div>
                 <hr>

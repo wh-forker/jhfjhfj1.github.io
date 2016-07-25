@@ -194,8 +194,8 @@
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<h3 id="description">Description</h3>
-<p><br />
+		<p>###Description<br />
+<br />
 We choose a grid in a <script type="math/tex">n\times n</script> matrix with uniform probability.
 If the grid is already painted, we do nothing.
 Otherwise, we paint it.
@@ -205,8 +205,8 @@ Output the expectation of the times to choose grid.
 In addition, there are some already painted grids are given in the input.
 <br /></p>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
+<p>###Tutorial<br />
+<br />
 <script type="math/tex">f_{i,j}</script> means the expectation to paint the empty sub-matrix of <script type="math/tex">i\times j</script> 
 (all other rows and columns have painted grids except these <script type="math/tex">i</script> rows and <script type="math/tex">j</script> columns)
 in a matrix of <script type="math/tex">n\times n</script>.
@@ -233,10 +233,10 @@ In dynamic programming, the order of solving each sub-problem can be the same as
 For example, in this problem, the smallest sub-problem $$f_{i,j} is the first to calculate in dynamic programming, but the last one to paint in real life.
 <br /></p>
 
-<h3 id="solution">Solution</h3>
-<p><br /></p>
+<p>###Solution<br />
+<br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 using namespace std;
 
 const int MAX_N = 2 * int(1e3) + 10;
@@ -289,6 +289,7 @@ int main()
 	return 0;
 }
 </code></pre>
+</div>
 
 
 		</div>

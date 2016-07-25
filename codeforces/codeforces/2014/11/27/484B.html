@@ -194,15 +194,15 @@
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<h3 id="description">Description</h3>
-<p><br />
+		<p>###Description<br />
+<br />
 You are given a sequence a consisting of <script type="math/tex">n</script> integers.
 Find the maximum possible value of <script type="math/tex">a_i</script> mod <script type="math/tex">a_j</script>, where <script type="math/tex">1 \leq i, j \leq n</script> and <script type="math/tex">a_i \geq a_j</script>.
 (<script type="math/tex">n \leq 2 \times 10^5</script>)<br />
 <br /></p>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
+<p>###Tutorial<br />
+<br />
 Sort the sequence first.
 Let us iterate over all different <script type="math/tex">a_j</script>.
 Since we need to maximize, then iterate all integer <script type="math/tex">x</script> (such <script type="math/tex">x</script> divisible by <script type="math/tex">a_j</script>) in range from <script type="math/tex">2 \times a_j</script> to <script type="math/tex">M</script>, where <script type="math/tex">M</script> is the sum of the max value in the sequence and <script type="math/tex">a_j</script>.
@@ -218,10 +218,10 @@ The iteration for all the <script type="math/tex">a_j</script> and <script type=
 Because <script type="math/tex">\sum\limits_{i=1}^{M} \frac{M}{i} \approx O(MlogM)</script> which can be deducted from Euler-Mascheroni constant.<br />
 <br /></p>
 
-<h3 id="solution">Solution</h3>
-<p><br /></p>
+<p>###Solution<br />
+<br /></p>
 
-<pre><code>#include &lt;cstring&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstring&gt;
 #include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
 #include &lt;cstdlib&gt;
@@ -263,6 +263,7 @@ int main()
 	return 0;
 }
 </code></pre>
+</div>
 
 		</div>
                 <hr>

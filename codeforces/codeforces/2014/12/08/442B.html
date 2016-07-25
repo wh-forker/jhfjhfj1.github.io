@@ -194,15 +194,15 @@
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<h3 id="description">Description</h3>
-<p><br />
+		<p>###Description<br />
+<br />
 Give the probabilities of each one in <script type="math/tex">n</script> friends to come up with exactly one problem.
 We should invite a group of friends so that
 the probability for them to up exactly one problem in total is maximized.
 <br /></p>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
+<p>###Tutorial<br />
+<br />
 The math deduction process is very complex.
 The easiest way to find the solution to this problem is to use brute force for to discover the patterns in the answer,
 if you cannot discover the pattern by hand.
@@ -213,10 +213,10 @@ The group we choose is always the suffix of this probability array.</p>
 <p>By the way, the formula for the probability for a group to come up with exactly one problem is <script type="math/tex">P=(\prod\limits_{i=1}^{n}(1-p_i))\times(\sum\limits_{i=1}^{n}\frac{p_i}{1-p_i})</script>.
 <br /></p>
 
-<h3 id="solution">Solution</h3>
-<p><br /></p>
+<p>###Solution<br />
+<br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
 using namespace std;
 
@@ -261,6 +261,7 @@ int main()
 	return 0;
 }
 </code></pre>
+</div>
 
 		</div>
                 <hr>

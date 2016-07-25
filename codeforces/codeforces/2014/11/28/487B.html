@@ -196,8 +196,8 @@
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<h3 id="description">Description</h3>
-<p><br />
+		<p>###Description<br />
+<br />
 Given a sequence of numbers of length <script type="math/tex">n</script>. (<script type="math/tex">1 \leq n \leq 10^5</script>)
 It require us to split the sequence into several substrip,
 and the difference between the maximum value and minimum value in each strip is no greater than <script type="math/tex">l</script>,
@@ -205,8 +205,8 @@ and the length of each substrip must be greater than <script type="math/tex">s</
 Output the minimal number of strip it could be divided into.
 <br /></p>
 
-<h3 id="tutorial">Tutorial</h3>
-<p><br />
+<p>###Tutorial<br />
+<br />
 Use dynamic programming to solve the problem.
 Let <script type="math/tex">f[i]</script> denote the minimal number of pieces that the first <script type="math/tex">i</script> numbers can be split into.
 <script type="math/tex">g[i]</script> denote the least possible left boarder of substrip whose right border is <script type="math/tex">i</script> which satisfies the condition.
@@ -224,12 +224,13 @@ which is slower than the push and pop of monotonic queue which is <script type="
 Quest any element in multiset (e.g. maximum, minimum) in <script type="math/tex">O(1)</script>. (I cannot believe that)
 It can be used as follows.</p>
 
-<pre><code>multiset&lt;E&gt; m;
+<div class="highlighter-rouge"><pre class="highlight"><code>multiset&lt;E&gt; m;
 m.insert(a);	//insert a into the multiset
 m.erase(m.lower_bound(a));	//delete a from the multiset
 *m.begin();	//the minimum element
 *(--m.end());	//the maximum element
 </code></pre>
+</div>
 
 <p>With so easy to access the maximum and minimum,
 we can finish the task of calculating <script type="math/tex">g[i]</script> with a process of two pointers,
@@ -239,10 +240,10 @@ which is to push the right boarder by 1 and to push the left boarder until it sa
 because its also a task of finding the minimal between the two pointers.
 <br /></p>
 
-<h3 id="solution">Solution</h3>
-<p><br /></p>
+<p>###Solution<br />
+<br /></p>
 
-<pre><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;cmath&gt;
 #include &lt;set&gt;
 using namespace std;
@@ -329,6 +330,7 @@ int main()
 	return 0;
 }
 </code></pre>
+</div>
 
 
 		</div>
