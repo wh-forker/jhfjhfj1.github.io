@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body onload="load()">
 	<!-- Navigation -->
 <div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
@@ -152,9 +152,14 @@
 </script>
 
 	<script>
+function load() {
     $.get( "/home/home_header.html", function( data ) {
         $(data).insertAfter("#nav_bar");
     });
+    $.get( "/home/home_sidebar.html", function( data ) {
+        $("#side_bar").html(data);
+    });
+}
 </script>
 
     <!-- Page Content -->
@@ -186,7 +191,11 @@ My research area is Internet of Things and Edge Computing. You can find me on <a
 
 
 
-		
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4" id="side_bar">
+
+            </div>
+
 
         </div>
         <!-- /.row -->

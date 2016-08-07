@@ -16,6 +16,12 @@
 
     <link href="/css/clean-blog.min.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,9 +32,9 @@
 
 </head>
 
-<body>
+<body onload="load()">
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -145,21 +151,16 @@
     }
 </script>
 
-	
-    <header class="intro-header" style="background-image: url('/img/chinese.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>Chinese</h1>
-                        <hr class="small">
-                        <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+	<script>
+function load() {
+    $.get( "/chinese/chinese_header.html", function( data ) {
+        $(data).insertAfter("#nav_bar");
+    });
+    $.get( "/chinese/chinese_sidebar.html", function( data ) {
+        $("#side_bar").html(data);
+    });
+}
+</script>
 
     <!-- Page Content -->
     <div class="container">
@@ -251,50 +252,16 @@
 <!-- End Nested Comment -->
 
 
-		<div class="row">
-<div class="col-lg-12">
-<div class="pull-right">
-
-  
-    <a class="btn btn-default disabled">
-	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    </a>
-  
-    <a class="btn btn-default" href="/chinese/">
-	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-    </a>
-
-  
-    <a class="btn btn-default" href="/chinese/2016/05/21/hardworking.html">
-	<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    </a>
-  
-
-</div>
-</div>
-</div>
-
 
             </div>
 
 
 
 
-		            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-		<div><p></p></div>
-<!-- Side Widget Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>简介</big></div>
-  <div class="panel-body">
-    <p>这里是一些我写的非技术类文章。</p>
-  </div>
-</div>
-
-
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4" id="side_bar">
 
             </div>
-
 
 
         </div>
@@ -318,11 +285,6 @@
 
 </script>
 
-    <!-- jQuery -->
-    <script src="/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
     
 </body>
 

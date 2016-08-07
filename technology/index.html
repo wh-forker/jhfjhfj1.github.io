@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body onload="load()">
 	<!-- Navigation -->
 <div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
@@ -152,9 +152,14 @@
 </script>
 
 	<script>
+function load() {
     $.get( "/technology/technology_header.html", function( data ) {
         $(data).insertAfter("#nav_bar");
     });
+    $.get( "/technology/technology_sidebar.html", function( data ) {
+        $("#side_bar").html(data);
+    });
+}
 </script>
 
     <!-- Page Content -->
@@ -174,35 +179,35 @@
 			
 		<tr style="font-size:16px">
 			<td>
-				<a href="/technology/technology/2016/05/06/getup.html">Get Up Early for 100 Days</a>
+				<a href="/technology/2016/05/06/getup.html">Get Up Early for 100 Days</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 06 May 2016</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/technology/technology/2015/11/28/tracker.html">Working Hours Tracker</a>
+				<a href="/technology/2015/11/28/tracker.html">Working Hours Tracker</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 28 Nov 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/technology/technology/2015/11/27/routines.html">My Daily Routines</a>
+				<a href="/technology/2015/11/27/routines.html">My Daily Routines</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 27 Nov 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/technology/technology/2015/06/29/github_pages.html">Jekyll on GitHub Pages</a>
+				<a href="/technology/2015/06/29/github_pages.html">Jekyll on GitHub Pages</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 29 Jun 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/technology/technology/2015/06/26/jekyll.html">Learn Jekyll Really Quick</a>
+				<a href="/technology/2015/06/26/jekyll.html">Learn Jekyll Really Quick</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 26 Jun 2015</td>
 			</tr>
@@ -223,20 +228,10 @@
 
 
 
-		            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-		<div><p></p></div>
-<!-- Side Widget Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>Introduction</big></div>
-  <div class="panel-body">
-    <p>Here are some articles and tutorials about technology.</p>
-  </div>
-</div>
-
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4" id="side_bar">
 
             </div>
-
 
 
         </div>

@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body onload="load()">
 	<!-- Navigation -->
 <div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
@@ -152,9 +152,14 @@
 </script>
 
 	<script>
+function load() {
     $.get( "/chinese/chinese_header.html", function( data ) {
         $(data).insertAfter("#nav_bar");
     });
+    $.get( "/chinese/chinese_sidebar.html", function( data ) {
+        $("#side_bar").html(data);
+    });
+}
 </script>
 
     <!-- Page Content -->
@@ -174,91 +179,91 @@
 			
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2016/05/30/time.html">为什么时间管理方法对你没用</a>
+				<a href="/chinese/2016/05/30/time.html">为什么时间管理方法对你没用</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 30 May 2016</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2016/05/21/hardworking.html">我们为什么要努力</a>
+				<a href="/chinese/2016/05/21/hardworking.html">我们为什么要努力</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 21 May 2016</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2016/05/09/A-Club-without-Me.html">没有我的A协</a>
+				<a href="/chinese/2016/05/09/A-Club-without-Me.html">没有我的A协</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 09 May 2016</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2016/05/06/method.html">他想做的事情都能成功</a>
+				<a href="/chinese/2016/05/06/method.html">他想做的事情都能成功</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 06 May 2016</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2015/11/20/baba.html">爸爸要我做个好孩子</a>
+				<a href="/chinese/2015/11/20/baba.html">爸爸要我做个好孩子</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 20 Nov 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2015/10/31/disaster.html">不能装X无异于一场灾难</a>
+				<a href="/chinese/2015/10/31/disaster.html">不能装X无异于一场灾难</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 31 Oct 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2015/10/01/iq.html">努力真的比智力重要吗</a>
+				<a href="/chinese/2015/10/01/iq.html">努力真的比智力重要吗</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 01 Oct 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2015/09/22/fail-or-not.html">挂还是不挂？这是个问题</a>
+				<a href="/chinese/2015/09/22/fail-or-not.html">挂还是不挂？这是个问题</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 22 Sep 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2015/07/25/study-at-bjfu.html">北京林业大学就读体验</a>
+				<a href="/chinese/2015/07/25/study-at-bjfu.html">北京林业大学就读体验</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 25 Jul 2015</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2014/06/07/fate.html">是什么决定了我们的命运</a>
+				<a href="/chinese/2014/06/07/fate.html">是什么决定了我们的命运</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 07 Jun 2014</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2014/04/17/I-and-A-Club.html">我与A协</a>
+				<a href="/chinese/2014/04/17/I-and-A-Club.html">我与A协</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 17 Apr 2014</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2009/08/04/primary-school.html">我不可思议的小学生活</a>
+				<a href="/chinese/2009/08/04/primary-school.html">我不可思议的小学生活</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 04 Aug 2009</td>
 			</tr>
 				
 		<tr style="font-size:16px">
 			<td>
-				<a href="/chinese/chinese/2008/04/17/lier.html">说谎的孩子被狼吃</a>
+				<a href="/chinese/2008/04/17/lier.html">说谎的孩子被狼吃</a>
 			</td>
 			<td><span class="glyphicon glyphicon-time"></span> Posted on 17 Apr 2008</td>
 			</tr>
@@ -279,21 +284,10 @@
 
 
 
-		            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-		<div><p></p></div>
-<!-- Side Widget Well -->
-<div class="panel panel-default">
-  <div class="panel-heading"><big>简介</big></div>
-  <div class="panel-body">
-    <p>这里是一些我写的非技术类文章。</p>
-  </div>
-</div>
-
-
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4" id="side_bar">
 
             </div>
-
 
 
         </div>
