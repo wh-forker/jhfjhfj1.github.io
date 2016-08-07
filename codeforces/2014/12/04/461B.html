@@ -195,15 +195,15 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 A tree has <script type="math/tex">n</script>(<script type="math/tex">1 \leq n \leq 10^5</script>) vertices, the color of each of which is either black or white.
 Now, we need to split the tree into many parts, each of which has exactly one black vertex.
 Output how many ways to split the tree.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 This is a dynamic programming problem on a tree.
 Define dp[i][j][0] as the number of ways to split the subtree whose root is <script type="math/tex">i</script>,
 and only have its first <script type="math/tex">j</script> subtrees (the subtrees whose roots are <script type="math/tex">i</script>’s direct children),
@@ -280,8 +280,8 @@ The thought of going through the children one by one and see the past children a
   </li>
 </ol>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;vector&gt;

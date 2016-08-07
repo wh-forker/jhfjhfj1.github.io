@@ -195,8 +195,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 A matrix with <script type="math/tex">n</script> rows and <script type="math/tex">m</script> columns consists of 1s and 0s.
 (<script type="math/tex">1\leq n,m \leq 100</script>)
 We are asked to change the matrix with less than <script type="math/tex">k</script> operations.
@@ -205,8 +205,8 @@ After the change, every connected region is a rectangle.
 Output the minimal number of operations needed.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 The final matrix must look like a chess board but with rectangles of 1s and 0s instead of squares of black and white.
 So there is a vector <script type="math/tex">x</script> has <script type="math/tex">n</script> values can serve as a pattern of each column.
 Every column either the same as <script type="math/tex">x</script> or different with <script type="math/tex">x</script> in every value.
@@ -222,8 +222,8 @@ So we just enumerate each column as <script type="math/tex">x</script> and calcu
 Since <script type="math/tex">k \leq 10</script>, we can just enumerate all the possible <script type="math/tex">x</script> with <script type="math/tex">O(2^n)</script>, and use the same method to calculate the answer.
 <br /></p>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;

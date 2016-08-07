@@ -193,8 +193,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 Given two set of integers. Totally, <script type="math/tex">n</script> integers.
 There are <script type="math/tex">m</script> edges connecting some integers from one set to the other.
 (<script type="math/tex">1 \leq n,m \leq 100</script>)</p>
@@ -203,8 +203,8 @@ There are <script type="math/tex">m</script> edges connecting some integers from
 Output the maximum number of operations could be performed.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 It is easy to know that each operation should use a prime factor, so that the answer could be maximized.
 For each prime number which is a factor of any of the integer in the set, we perform a maxflow.
 Each integer is a vertex in the network flow graph.</p>
@@ -215,8 +215,8 @@ Likely, we add edges from the integers in the second set to the terminal.</p>
 <p>Finally, we add up each maxflow which is the answer of the problem.
 <br /></p>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;

@@ -197,8 +197,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 Given a sequence of numbers of length <script type="math/tex">n</script>. (<script type="math/tex">1 \leq n \leq 10^5</script>)
 It require us to split the sequence into several substrip,
 and the difference between the maximum value and minimum value in each strip is no greater than <script type="math/tex">l</script>,
@@ -206,8 +206,8 @@ and the length of each substrip must be greater than <script type="math/tex">s</
 Output the minimal number of strip it could be divided into.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 Use dynamic programming to solve the problem.
 Let <script type="math/tex">f[i]</script> denote the minimal number of pieces that the first <script type="math/tex">i</script> numbers can be split into.
 <script type="math/tex">g[i]</script> denote the least possible left boarder of substrip whose right border is <script type="math/tex">i</script> which satisfies the condition.
@@ -241,8 +241,8 @@ which is to push the right boarder by 1 and to push the left boarder until it sa
 because its also a task of finding the minimal between the two pointers.
 <br /></p>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;cmath&gt;

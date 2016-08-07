@@ -191,8 +191,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###1.Abstract common parts
-When you see two blocks of code are similar to each other,
+		<h3 id="abstract-common-parts">1.Abstract common parts</h3>
+<p>When you see two blocks of code are similar to each other,
 it means you need to abstract them into a function and call it twice. For example, let us see the following code.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>int sum1 = 0;
@@ -231,7 +231,7 @@ int sum2 = get_sum(g, m);
 Every time you want to debug or fix this block of code, you only need to do it once in the function.
 It saves the trouble of inconsistancy between the original two blocks of code.</p>
 
-<p>###2.Avoiding complicated if structures</p>
+<h3 id="avoiding-complicated-if-structures">2.Avoiding complicated if structures</h3>
 
 <p>The following code uses a very complicated logic with booleans.</p>
 
@@ -273,7 +273,7 @@ return c;
 </code></pre>
 </div>
 
-<p>###3.Use subroutines</p>
+<h3 id="use-subroutines">3.Use subroutines</h3>
 
 <p>First, let’s see an example of using subroutines to avoid breaking multiple quoted loops.
 Given a 2-dimentional matrix. We want to find a character in the matrix and print its coordinate.

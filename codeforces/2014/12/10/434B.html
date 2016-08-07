@@ -195,8 +195,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 A matrix with <script type="math/tex">n</script> rows and <script type="math/tex">m</script> columns consists of 1s and 0s.
 (<script type="math/tex">1 \leq n,m \leq 10^3</script>)
 Now, we have <script type="math/tex">q</script> (<script type="math/tex">1 \leq q \leq 10^3</script>) operations.
@@ -206,8 +206,8 @@ Second is to query what is the largest space of a rectangle with point (<script 
 The rectangle must be filled with 1s.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 We calculate <script type="math/tex">l[i][j]</script> which is the length of the longest chain of 1s on the right of point (<script type="math/tex">i,j</script>).
 It can be done with <script type="math/tex">O(n^2)</script> or <script type="math/tex">O(nm)</script>.
 For each change we can change <script type="math/tex">l</script> in <script type="math/tex">O(n)</script>.
@@ -224,8 +224,8 @@ Each time we calculate the space of the rectangle and update the answer.</p>
 <p>It is the same when the point is on the left, up and down side of the rectangle.
 <br /></p>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;algorithm&gt;

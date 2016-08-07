@@ -198,20 +198,20 @@ The boring minutiaes which can easily learned when you use it is not mentioned a
 
 <p><br /></p>
 
-<p>###What is it?<br />
-Jekyll is a software allowing you to setup and manage your blog with some HTML templates and snippets and nothing else.</p>
+<h3 id="what-is-it">What is it?</h3>
+<p>Jekyll is a software allowing you to setup and manage your blog with some HTML templates and snippets and nothing else.</p>
 
 <p><br /></p>
 
-<p>###Example
-Here is <a href="https://github.com/jhfjhfj1/jekyll_easy_example">an easy example</a> to show the basic usage of Jekyll.</p>
+<h3 id="example">Example</h3>
+<p>Here is <a href="https://github.com/jhfjhfj1/jekyll_easy_example">an easy example</a> to show the basic usage of Jekyll.</p>
 
 <p>I suggest you star it on GitHub, unless you can remember it forever. You can fork or download it to work on it.</p>
 
 <p><br /></p>
 
-<p>###Explaination
-Following is the file structure of the example.</p>
+<h3 id="explaination">Explaination</h3>
+<p>Following is the file structure of the example.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>.
 +--_includes
@@ -232,8 +232,8 @@ Following is the file structure of the example.</p>
 
 <p><br /></p>
 
-<p>####YAML Heads
-We can see that nearly every file have something like the following in their heads.</p>
+<h3 id="yaml-heads">#YAML Heads</h3>
+<p>We can see that nearly every file have something like the following in their heads.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>---
 layout: default
@@ -248,14 +248,14 @@ title: my post
 
 <p><br /></p>
 
-<p>####Layouts
-In the directory of “_layouts” are some HTML template files. They all have the keyword {{ content }}. It marks where the content of the file using the layout is to be inserted.
+<h3 id="layouts">#Layouts</h3>
+<p>In the directory of “_layouts” are some HTML template files. They all have the keyword {{ content }}. It marks where the content of the file using the layout is to be inserted.
 You can write “layout: layout_file_name” in the YAML to set the layout of the file. Actually, the layout_file_name is a path and name relative to the directory of “_layouts”.</p>
 
 <p><br /></p>
 
-<p>####Includes
-In the directory of “_includes” are some “*.ext” files. They are the HTML snippets to include in other files.
+<h3 id="includes">#Includes</h3>
+<p>In the directory of “_includes” are some “*.ext” files. They are the HTML snippets to include in other files.
 Use the following code to insert the snippets.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="err">file_name.ext</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w"> </span><span class="err">The</span><span class="w"> </span><span class="err">file</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">actually</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">path</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">relative</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">directory</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="s2">"_includes"</span><span class="err">.</span><span class="w">
@@ -264,13 +264,13 @@ Use the following code to insert the snippets.</p>
 
 <p><br /></p>
 
-<p>####Posts
-In the directory of “_posts” are the articles in the blog. They can be written in HTML. Their names must be in the format of “yyyy-mm-dd-name.html”.</p>
+<h3 id="posts">#Posts</h3>
+<p>In the directory of “_posts” are the articles in the blog. They can be written in HTML. Their names must be in the format of “yyyy-mm-dd-name.html”.</p>
 
 <p><br /></p>
 
-<p>####Index
-We need to include the list of our posts in “index.html” by the following code.</p>
+<h3 id="index">#Index</h3>
+<p>We need to include the list of our posts in “index.html” by the following code.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">post</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">site.posts</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
 </span><span class="err">&lt;p&gt;</span><span class="w">
@@ -285,8 +285,8 @@ We can have multiple HTML files or directories in this directory, just like a no
 
 <p><br /></p>
 
-<p>###Build Command
-In linux operating system, first cd to the directory contains the jekyll project. Then, type in the following command. Finally, check “http://127.0.0.1:4000/” in your browser. The index will be displayed.</p>
+<h3 id="build-command">Build Command</h3>
+<p>In linux operating system, first cd to the directory contains the jekyll project. Then, type in the following command. Finally, check “http://127.0.0.1:4000/” in your browser. The index will be displayed.</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>jekyll serve
 </code></pre>

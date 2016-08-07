@@ -193,8 +193,8 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>###Description<br />
-<br />
+		<h3 id="description">Description</h3>
+<p><br />
 Here is a undirected graph with <script type="math/tex">n</script> nodes and <script type="math/tex">m</script> edges.
 (<script type="math/tex">2 \leq n, m \leq 10^5</script>)
 Each node has a weight <script type="math/tex">a_i</script>.
@@ -203,8 +203,8 @@ Each node has a weight <script type="math/tex">a_i</script>.
 Output the average of <script type="math/tex">f(p,q)</script> of all possible pairs of nodes on the graph.
 <br /></p>
 
-<p>###Tutorial<br />
-<br />
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
 Sort the nodes with their weights in decreasing order.
 Starting from an empty graph, add the nodes to the graph one by one.
 Each time some components may become connected by the new node added.
@@ -214,8 +214,8 @@ Join the components to that new node one by one.
 Add the sum of the <script type="math/tex">f(p,q)</script>s to the answer during each joint.
 <br /></p>
 
-<p>###Solution<br />
-<br /></p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;vector&gt;
 #include &lt;cstdio&gt;
