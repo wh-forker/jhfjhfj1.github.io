@@ -16,6 +16,12 @@
 
     <link href="/css/clean-blog.min.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +34,7 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -145,21 +151,11 @@
     }
 </script>
 
-	
-    <header class="intro-header" style="background-image: url('/img/codeforces.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>Codeforces</h1>
-                        <hr class="small">
-                        <span class="subheading">The Art of Competitive Programming</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+	<script>
+    $.get( "/codeforces/codeforces_header.html", function( data ) {
+        $(data).insertAfter("#nav_bar");
+    });
+</script>
 
     <!-- Page Content -->
     <div class="container">
@@ -370,11 +366,6 @@ int main()
 
 </script>
 
-    <!-- jQuery -->
-    <script src="/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
     
 </body>
 
