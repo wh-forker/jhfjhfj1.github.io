@@ -151,16 +151,19 @@
     }
 </script>
 
+<header class="intro-header" id="header" style="background-image: url('/img/technology.jpg')"> 
+</header>
 	<script>
 function load() {
-    $.get( "/technology/technology_header.html", function( data ) {
-        $(data).insertAfter("#nav_bar");
+    $.get( "/technology/header.html", function( data ) {
+        $("#header").html(data);
     });
-    $.get( "/technology/technology_sidebar.html", function( data ) {
+    $.get( "/technology/sidebar.html", function( data ) {
         $("#side_bar").html(data);
     });
 }
 </script>
+
 
     <!-- Page Content -->
     <div class="container">

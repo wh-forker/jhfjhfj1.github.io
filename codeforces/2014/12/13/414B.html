@@ -151,16 +151,19 @@
     }
 </script>
 
+<header class="intro-header" id="header" style="background-image: url('/img/codeforces.jpg')"> 
+</header>
 	<script>
 function load() {
-    $.get( "/codeforces/codeforces_header.html", function( data ) {
-        $(data).insertAfter("#nav_bar");
+    $.get( "/codeforces/header.html", function( data ) {
+        $("#header").html(data);
     });
-    $.get( "/codeforces/codeforces_sidebar.html", function( data ) {
+    $.get( "/codeforces/sidebar.html", function( data ) {
         $("#side_bar").html(data);
     });
 }
 </script>
+
 
     <!-- Page Content -->
     <div class="container">
