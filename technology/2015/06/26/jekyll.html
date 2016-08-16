@@ -216,7 +216,7 @@ The boring minutiaes which can easily learned when you use it is not mentioned a
 <h3 id="explaination">Explaination</h3>
 <p>Following is the file structure of the example.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>.
+<pre><code>.
 +--_includes
 |  +snappit.ext
 |
@@ -231,19 +231,17 @@ The boring minutiaes which can easily learned when you use it is not mentioned a
 |
 +--index.html It uses Liquid language to generate the pages. The "_site" directory contains the generated website.
 </code></pre>
-</div>
 
 <p><br /></p>
 
 <h3 id="yaml-heads">#YAML Heads</h3>
 <p>We can see that nearly every file have something like the following in their heads.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>---
+<pre><code>---
 layout: default
 title: my post
 ---
 </code></pre>
-</div>
 
 <p>They are called YAML. This defines some properties of the files for us to load when use them in jekyll projects.</p>
 
@@ -261,9 +259,8 @@ You can write “layout: layout_file_name” in the YAML to set the layout of th
 <p>In the directory of “_includes” are some “*.ext” files. They are the HTML snippets to include in other files.
 Use the following code to insert the snippets.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="err">file_name.ext</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w"> </span><span class="err">The</span><span class="w"> </span><span class="err">file</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">actually</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">path</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">relative</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">directory</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="s2">"_includes"</span><span class="err">.</span><span class="w">
-</span></code></pre>
-</div>
+<pre><code>{% include file_name.ext %} The file name is actually a path and name relative to the directory of "_includes".
+</code></pre>
 
 <p><br /></p>
 
@@ -275,13 +272,12 @@ Use the following code to insert the snippets.</p>
 <h3 id="index">#Index</h3>
 <p>We need to include the list of our posts in “index.html” by the following code.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">post</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">site.posts</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span><span class="err">&lt;p&gt;</span><span class="w">
-</span><span class="err">&lt;a</span><span class="w"> </span><span class="err">href=</span><span class="s2">"{{post.url}}"</span><span class="err">&gt;</span><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">post.title</span><span class="w"> </span><span class="p">}</span><span class="err">}&lt;/a&gt;Posted</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">post.date</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">date_to_string</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-</span><span class="err">&lt;/p&gt;</span><span class="w">
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">endfor</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+<pre><code>{% for post in site.posts %}
+&lt;p&gt;
+&lt;a href="{{post.url}}"&gt;{{ post.title }}&lt;/a&gt;Posted on {{ post.date | date_to_string }}
+&lt;/p&gt;
+{% endfor %}
+</code></pre>
 
 <p>This is a loop generating the title and link of each post.
 We can have multiple HTML files or directories in this directory, just like a normal website’s structure including CSS and JavaScript. They will all be proceeded just like the index.</p>
@@ -291,9 +287,8 @@ We can have multiple HTML files or directories in this directory, just like a no
 <h3 id="build-command">Build Command</h3>
 <p>In linux operating system, first cd to the directory contains the jekyll project. Then, type in the following command. Finally, check “http://127.0.0.1:4000/” in your browser. The index will be displayed.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jekyll serve
+<pre><code>jekyll serve
 </code></pre>
-</div>
 
 
 		</div>

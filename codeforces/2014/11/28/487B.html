@@ -228,13 +228,12 @@ which is slower than the push and pop of monotonic queue which is <script type="
 Quest any element in multiset (e.g. maximum, minimum) in <script type="math/tex">O(1)</script>. (I cannot believe that)
 It can be used as follows.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>multiset&lt;E&gt; m;
+<pre><code>multiset&lt;E&gt; m;
 m.insert(a);	//insert a into the multiset
 m.erase(m.lower_bound(a));	//delete a from the multiset
 *m.begin();	//the minimum element
 *(--m.end());	//the maximum element
 </code></pre>
-</div>
 
 <p>With so easy to access the maximum and minimum,
 we can finish the task of calculating <script type="math/tex">g[i]</script> with a process of two pointers,
@@ -247,7 +246,7 @@ because its also a task of finding the minimal between the two pointers.
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
+<pre><code>#include &lt;cstdio&gt;
 #include &lt;cmath&gt;
 #include &lt;set&gt;
 using namespace std;
@@ -334,7 +333,6 @@ int main()
 	return 0;
 }
 </code></pre>
-</div>
 
 
 		</div>
