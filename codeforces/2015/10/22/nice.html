@@ -198,7 +198,7 @@ function load() {
 <p>When you see two blocks of code are similar to each other,
 it means you need to abstract them into a function and call it twice. For example, let us see the following code.</p>
 
-<pre><code>int sum1 = 0;
+<div class="highlighter-rouge"><pre class="highlight"><code>int sum1 = 0;
 for (int i = 0; i &lt; n; i++)
 {
 	sum1 += f[i];
@@ -210,11 +210,12 @@ for (int i = 0; i &lt; m; i++)
 	sum2 += g[i];
 }
 </code></pre>
+</div>
 
 <p>This code is calculating the sum of array f[] and array g[].
 It would be better to change it like this.</p>
 
-<pre><code>int get_sum(int f[], int n)
+<div class="highlighter-rouge"><pre class="highlight"><code>int get_sum(int f[], int n)
 {
 	int ret = 0;
 	for (int i = 0; i &lt; n; i++)
@@ -227,6 +228,7 @@ It would be better to change it like this.</p>
 int sum1 = get_sum(f, n);
 int sum2 = get_sum(g, m);
 </code></pre>
+</div>
 
 <p>This change is not only make it better to read, but also make it better to debug especially when they share a big block of code.
 Every time you want to debug or fix this block of code, you only need to do it once in the function.
@@ -236,7 +238,7 @@ It saves the trouble of inconsistancy between the original two blocks of code.</
 
 <p>The following code uses a very complicated logic with booleans.</p>
 
-<pre><code>if (a)
+<div class="highlighter-rouge"><pre class="highlight"><code>if (a)
 {
 	if (b)
 	{
@@ -256,12 +258,13 @@ It saves the trouble of inconsistancy between the original two blocks of code.</
 	}
 }
 </code></pre>
+</div>
 
 <p>Instead of use quoted if, we should first try to extract some independent situations and handle them first. This will relief the burden of handling them all together.</p>
 
 <p>The following code does the same thing as the above. First, we can see that no matter what is a and c. If b is false, then the final result is false. So we handle this first. After that we can just assume b is true. So the rest of the work would be much easier.</p>
 
-<pre><code>if (!b)
+<div class="highlighter-rouge"><pre class="highlight"><code>if (!b)
 {
 	return false;
 }
@@ -271,6 +274,7 @@ if (a)
 }
 return c;
 </code></pre>
+</div>
 
 <h3 id="use-subroutines">3.Use subroutines</h3>
 
@@ -278,7 +282,7 @@ return c;
 Given a 2-dimentional matrix. We want to find a character in the matrix and print its coordinate.
 If we do not use subroutines, we can do it like this.</p>
 
-<pre><code>bool multi_break = false;
+<div class="highlighter-rouge"><pre class="highlight"><code>bool multi_break = false;
 for (int i = 0; i &lt; row_num; i++)
 {
 	for (int j = 0; j &lt; col_num; j++)
@@ -296,10 +300,11 @@ for (int i = 0; i &lt; row_num; i++)
 }
 cout &lt;&lt; x &lt;&lt; " " &lt;&lt; y &lt;&lt; endl;
 </code></pre>
+</div>
 
 <p>If we use subroutine, we can do it much more elegant.</p>
 
-<pre><code>pair&lt;int, int&gt; find(int target)
+<div class="highlighter-rouge"><pre class="highlight"><code>pair&lt;int, int&gt; find(int target)
 {
 	for (int i = 0; i &lt; row_num; i++)
 	{
@@ -319,6 +324,7 @@ void main()
 	cout &lt;&lt; a.first &lt;&lt; " " &lt;&lt; a.second &lt;&lt; endl;
 }
 </code></pre>
+</div>
 
 
 		</div>
