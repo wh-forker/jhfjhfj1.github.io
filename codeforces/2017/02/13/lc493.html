@@ -205,7 +205,9 @@ function load() {
 First, do the discretization. The discretization array should taken into account both nums[i] and nums[i] * 2.</p>
 
 <p>Then, insert the elements into binary indexed tree from left.
-Before inserting nums[i], we should check how many elements in the binary indexed tree is greater than nums[i] * 2, and add it to the final answer.
+Before inserting nums[i], we should check how many elements in the binary indexed tree is greater than nums[i] * 2, and add it to the final answer.</p>
+
+<p>Note: Multiset will cause TLE since std::distance would take linear time to the size of the multiset.
 <br /></p>
 
 <h3 id="solution">Solution</h3>
