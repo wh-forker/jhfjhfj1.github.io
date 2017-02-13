@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>北京林业大学就读体验</title>
+    <title>Leetcode 493</title>
 
     <!-- Bootstrap Core  -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -151,14 +151,14 @@
     }
 </script>
 
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/codeforces.jpg')"> 
 </header>
 	<script>
 function load() {
-    $.get( "/chinese/header.html", function( data ) {
+    $.get( "/codeforces/header.html", function( data ) {
         $("#header").html(data);
     });
-    $.get( "/chinese/sidebar.html", function( data ) {
+    $.get( "/codeforces/sidebar.html", function( data ) {
         $("#side_bar").html(data);
     });
 }
@@ -175,13 +175,17 @@ function load() {
 
                 <!-- Title -->
 		
-                <h2>北京林业大学就读体验</h2>
+                <h2>Leetcode 493</h2>
                 <hr>
 
                 <!-- Date/Time -->
-		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 25 Jul 2015</span>
+		<div class="glyphicon glyphicon-time"></div><span>&nbsp;Posted on 13 Feb 2017</span>
 
 		<div class="pull-right">
+			
+			<span class="label label-default">binary indexed tree</span>
+			
+			<span class="label label-default">discretization</span>
 			
 		</div>
 
@@ -193,24 +197,83 @@ function load() {
 </script>
 
 		<div style="font-size: 16px; line-height: 26px">
-		<p>刚到北林时，心中有些愤懑；而现在，只会因毕业于北林而骄傲。——题记</p>
+		<h3 id="problem-linkhttpsleetcodecomproblemsreverse-pairs"><a href="https://leetcode.com/problems/reverse-pairs/">Problem Link</a></h3>
+<p><br /></p>
 
-<p>不知道是不是很多要入学的新生关注了这个问题。我想从面相新生的角度来对此进行一下回答。</p>
+<h3 id="tutorial">Tutorial</h3>
+<p><br />
+First, do the discretization. The discretization array should taken into account both nums[i] and nums[i] * 2.</p>
 
-<p>2009年，我是北林的大一新生。当时就发现身边的人来北林的心情各不相同。有些人因为超常发挥进入211而喜悦；有些则志在清华北大，慨叹人生无常。但这些年的经验告诉我，无论你是前者还是后者，只要努力地去度过一个充实的大学生活，你一定会对你的收获感到满意。尤其是后者，北林能给你的并不会比你梦想中的高校少。</p>
+<p>Then, insert the elements into binary indexed tree from left.
+Before inserting nums[i], we should check how many elements in the binary indexed tree is greater than nums[i] * 2, and add it to the final answer.
+<br /></p>
 
-<p>我之所以敢这么说是因为这是我在就读于北京林业大学期间所体会到的最真切的感受。人生中所谓的重大转折点，例如高考，并不真的是一试定终生。能考上第一志愿的清华固然皆大欢喜，而落到第五志愿的北林也是塞翁失马焉知非福。因为当你以和清华才子竞争的实力投入到北林的学习生活中时，你会获得许多在清华得不到的机会。可能是学生会主席团的一席之地，或者是顶尖学术大牛长期的悉心指导。当你发现周围的资源都在向你聚拢时，你就会明白，对于你个人发展来说，清华和北林并没有想象中那么大的差别，并不是一个天上一个地下，它们只是各有利弊的两种选择罢了。这就是为什么在鸡头和凤尾的选择中许多人倾向于前者。</p>
+<h3 id="solution">Solution</h3>
+<p><br /></p>
 
-<p>现在毕业了再回头来看伴你生活四年的北林，你看到的不再是它比不上哈佛、剑桥、清华、北大；而是会看到舌尖上的呱呱小吃城、装了空调的男生宿舍、雄伟的学研大厦和美丽的银杏大道。如果让我用一句话来描述北林，我会说：虽然它不是最棒的，但它却给予了我最丰厚的收获。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>#define d(x) 
+#define LL long long
+#define MAX_N (int(5e4 + 10) * 2)
+struct BIT
+{
+	LL binary_indexed_tree[MAX_N];
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/study-at-bjfu.jpg" />
-      </div>
+	void init()
+	{
+		memset(binary_indexed_tree, 0, sizeof(binary_indexed_tree));
+	}
+
+	int low_bit(int x)
+	{
+		return x &amp; (-x);
+	}
+
+	void add(int pos, LL val)
+	{
+		for (int i = pos; i &lt; MAX_N; i += low_bit(i))
+		{
+			binary_indexed_tree[i] += val;
+		}
+	}
+
+	LL sum(int pos)
+	{
+		LL ret = 0;
+		for (int i = pos; i &gt; 0; i -= low_bit(i))
+		{
+			ret += binary_indexed_tree[i];
+		}
+		return ret;
+	}
+};
+
+
+class Solution {
+public:
+    int reversePairs(vector&lt;int&gt;&amp; nums) {
+        vector&lt;long long&gt; discrete = vector&lt;long long&gt; ();
+        for (int i = 0; i &lt; (int)nums.size(); i++) {
+            discrete.push_back(nums[i]);
+            discrete.push_back(nums[i] * 2LL);
+        }
+        sort(discrete.begin(), discrete.end());
+        discrete.resize(std::distance(discrete.begin(), unique(discrete.begin(), discrete.end())));
+        
+        BIT bit = BIT();
+        bit.init();
+        int ret = 0;
+        for (int i = 0; i &lt; (int)nums.size(); i++) {
+            long long a = lower_bound(discrete.begin(), discrete.end(), nums[i]) - discrete.begin() + 1;
+            long long a2 = lower_bound(discrete.begin(), discrete.end(), nums[i] * 2LL) - discrete.begin() + 1;
+            ret += bit.sum(MAX_N - 1) - bit.sum(a2);
+            bit.add(a, 1);
+            d(cout &lt;&lt; a2 &lt;&lt; endl);
+        }
+        return ret;
+    }
+};
+</code></pre>
 </div>
-</div>
-
 
 		</div>
                 <hr>
