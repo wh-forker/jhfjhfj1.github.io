@@ -30,9 +30,20 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script>
+function load() {
+    $.get( "/technology/header.html", function( data ) {
+        $("#header").html(data);
+    });
+    $.get( "/technology/sidebar.html", function( data ) {
+        $("#side_bar").html(data);
+    });
+}
+</script>
+
 </head>
 
-<body onload="load()">
+<body>
 	<!-- Navigation -->
 <div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
     <div class="container">
@@ -132,18 +143,19 @@
 </script>
 
 <header class="intro-header" id="header" style="background-image: url('/img/technology.jpg')"> 
-</header>
-	<script>
-function load() {
-    $.get( "/technology/header.html", function( data ) {
-        $("#header").html(data);
-    });
-    $.get( "/technology/sidebar.html", function( data ) {
-        $("#side_bar").html(data);
-    });
-}
-</script>
+	        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Technology</h1>
+                        <hr class="small">
+                        <span class="subheading">It's Not Only the Technology  That Changes the World, But the Dream We All Have.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+</header>
 
 			    <!-- Page Content -->
     <div class="container">
@@ -223,6 +235,17 @@ function load() {
 
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+		            <!-- Blog Sidebar Widgets Column -->
+		<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="panel panel-default">
+  <div class="panel-heading"><big>Introduction</big></div>
+  <div class="panel-body">
+    <p>Here are some articles and tutorials about technology.</p>
+  </div>
+</div>
+
+
 
             </div>
 
