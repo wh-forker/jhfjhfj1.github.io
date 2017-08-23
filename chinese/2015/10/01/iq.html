@@ -21,6 +21,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.plate.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,17 +30,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-<script>
-function load() {
-    $.get( "/chinese/header.html", function( data ) {
-        $("#header").html(data);
-    });
-    $.get( "/chinese/sidebar.html", function( data ) {
-        $("#side_bar").html(data);
-    });
-}
-</script>
 
 </head>
 
@@ -142,20 +132,33 @@ function load() {
     }
 </script>
 
+    <div id="listener-contained" class="listener pointer">
 <header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
-	        <div class="container">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Chinese</h1>
+
+            <div id="plate-contained" class="plate">
+		                        <h1>Chinese</h1>
                         <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
+
+            </div>
                     </div>
                 </div>
             </div>
         </div>
 
 </header>
+    </div>
+        <script>
+            $('#listener-contained').plate({
+                element: '#plate-contained',
+		maxRotation: 20,
+		radius: 2000
+            });
+        </script>
 
 		    <div class="container">
 
