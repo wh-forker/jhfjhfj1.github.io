@@ -205,7 +205,7 @@ Use trie to store all the words. Then we do a DFS on the board, at each step of 
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class TrieNode:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class TrieNode:
     def __init__(self):
         self.isEnd=False
         self.children={}
@@ -260,8 +260,7 @@ class Solution(object):
         self.dfs(board, sx, sy - 1, st, trie) 
         self.vis[sx][sy] = False
         st.pop()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>

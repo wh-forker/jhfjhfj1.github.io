@@ -208,7 +208,7 @@ This algorithm is called quick selector.
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Solution(object):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution(object):
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
@@ -234,8 +234,7 @@ def qsort(nums, k):
     if l &gt; k:
         return qsort(nums[:l], k)
     return qsort(nums[l + 1:], k - l - 1)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>

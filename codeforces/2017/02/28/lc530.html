@@ -204,7 +204,7 @@ So we just find the in-order of the tree and get the minimum distance of two adj
 
 <h3 id="solution">Solution</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from collections import deque
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from collections import deque
 
 class Solution(object):
     def getMinimumDifference(self, root):
@@ -231,8 +231,7 @@ class Solution(object):
         if len(self.q) != 2:
             return
         self.ans = min(self.ans, abs(self.q[0] - self.q[1]))
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>

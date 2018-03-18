@@ -210,7 +210,7 @@ We just go through it to find the longest gap between two neighbours.
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Solution(object):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution(object):
     def longestValidParentheses(self, s):
 	"""
 	:type s: str
@@ -230,8 +230,7 @@ We just go through it to find the longest gap between two neighbours.
 	for i in range(len(stk) - 1):
 	    ret = max(ret, stk[i + 1] - stk[i] - 1)
 	return ret
-</code></pre>
-</div>
+</code></pre></div></div>
 
 		</div>
                 <hr>

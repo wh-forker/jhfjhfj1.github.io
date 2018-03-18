@@ -211,10 +211,9 @@ When updating the distance of a node, if the new distance is less than or equal 
 
 <p>I learned how to define a graph by vector.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>vector&lt;pair&lt;int, int&gt; &gt; edge[MAX_NODE_NUM];
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;pair&lt;int, int&gt; &gt; edge[MAX_NODE_NUM];
 edge[u].push_back(make_pair(v, w));
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>I also updated the template for Dijkstra.
 <br /></p>
@@ -222,7 +221,7 @@ edge[u].push_back(make_pair(v, w));
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;cstdlib&gt;
 #include &lt;cstring&gt;
 #include &lt;algorithm&gt;
@@ -319,8 +318,7 @@ int main()
 	printf("%d\n", work());
 	return 0;
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>

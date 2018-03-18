@@ -238,14 +238,13 @@ We can delete the second dimension, just replace the old value with the new as <
   <li>
     <p>About the defining the max value of n.</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code> const int MAX_N = int(1e5) + 10;
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> const int MAX_N = int(1e5) + 10;
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Iterating all the scenarios and use conditions to control what to do. The following state transition controll is a good example.</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code> for (int i = 0; i &lt; 2; i++)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> for (int i = 0; i &lt; 2; i++)
  {
      for (int j = 0; j &lt; 2; j++)
      {
@@ -255,13 +254,12 @@ We can delete the second dimension, just replace the old value with the new as <
              cur[i] = (cur[i] + 1LL * last[i] * dp[v][j] % MOD) % MOD;
      }
  }
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>A way to controll DFS.</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code> DFS()
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> DFS()
  {
      for (all the children)
      {
@@ -269,8 +267,7 @@ We can delete the second dimension, just replace the old value with the new as <
      }
      do the work();
  }
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>The connection of dynamic programming of two different data structures of storing trees.
@@ -284,7 +281,7 @@ The thought of going through the children one by one and see the past children a
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#include &lt;cstdio&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;cstdio&gt;
 #include &lt;vector&gt;
 using namespace std;
 
@@ -356,8 +353,7 @@ int main()
 	printf("%d\n", dp[0][1]);
 	return 0;
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 		</div>
                 <hr>

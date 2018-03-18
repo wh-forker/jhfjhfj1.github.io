@@ -208,7 +208,7 @@ Do not use <script type="math/tex">O(n^2)</script> to try each pair of words, wh
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Tree:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Tree:
     def __init__(self, word_list, start_word, mark, vis, adj):
         self.word_list = word_list
         self.start_word = start_word
@@ -313,8 +313,7 @@ class Solution(object):
             if tree_top.finish and tree_bottom.finish:
                 return []
         return []
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>

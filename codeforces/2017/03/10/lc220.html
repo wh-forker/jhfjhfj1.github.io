@@ -207,7 +207,7 @@ The best solution is bucketing with O(n) complexity.</p>
 
 <h3 id="solution">Solution</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Solution:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
     def containsNearbyAlmostDuplicate(self, nums, k, t):
 	if t &lt; 0:
 	    return False
@@ -227,8 +227,7 @@ The best solution is bucketing with O(n) complexity.</p>
 	    if i &gt;= k:
 	        my_dict.pop(nums[i - k] / (t + 1))
 	return False
-</code></pre>
-</div>
+</code></pre></div></div>
 
 		</div>
                 <hr>

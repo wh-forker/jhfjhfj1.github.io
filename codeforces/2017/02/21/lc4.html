@@ -213,7 +213,7 @@ The complexity is <script type="math/tex">O(log(m+n))</script>.
 <h3 id="solution">Solution</h3>
 <p><br /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Solution(object):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
         """
         :type nums1: List[int]
@@ -260,8 +260,7 @@ The complexity is <script type="math/tex">O(log(m+n))</script>.
         l = nums[n - 1] if n != 0 else -float('inf')
         r = nums[n] if n != len(nums) else float('inf')
         return l, r
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
 		</div>
