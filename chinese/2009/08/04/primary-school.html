@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>我不可思议的小学生活</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 04 Aug 2009
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,7 +158,7 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>忽然间想写一写小学发生的事情，在那个年龄段感觉那么正常的事情现在想起来却感觉那么好笑，回忆起那些事情真是笑死我了！你们小时候是不是也发生过类似的事情呢？</p>
 
 <p>这里面既有可爱的我们，还有陪我们一起可爱的老师们。</p>
@@ -202,13 +169,7 @@
 
 <p>　　3.又是一次英语二课堂，Miss Li教我们番茄这个单词，tomato。我们一遍一遍地跟她读着，学完后她问：“哪个同学还有问题？”一个又瘦又高的女生举起了手，她站起来说：“Miss Li，我可不可以把它记成投抹布？”原来她是想用谐音的记忆方法，还真是有想象力啊。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/primary-school1.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/primary-school1.jpg" /></p>
 
 <p>　　4.还是一次英语二课堂，Miss Li正在讲课，一个坐在第一桌有点矮还有点胖女生举起了手，被允许后她站起来指着自己同桌的座位说：“她没了。”全班的目光一下子集中到了她同桌的座位上，真的没有人。难道他同桌突然间消失了，真吓人，我当时想。就在这时她同桌嗖的一下子从桌下钻了出来，原来是到桌子底下捡东西去了。</p>
 
@@ -216,13 +177,7 @@
 
 <p>　　6.在一次庄严的升旗仪式上（好像那时候说升旗都要加上“庄严的”这个前缀），国歌响起了，鲜艳的五星红旗随着国歌缓缓地上升，但是这个升旗手的耐性太好了，绳子拽得太慢了，国歌都快完事了国旗离杆顶还有一大截呢，我想：这班肯定完蛋了，没有挽回的机会了，肯定国歌播完了还得拽挺长时间才能到顶。但是我想错了没想到那个升旗手原来是天生神力，在国歌结束时的那个重音他使出全身力气狠狠地将绳子拉了一下，国旗如离弦的箭一样蹿到了旗杆顶端。这真是令我大开眼界，原来开始有那么大的失误，都能丝毫不差的在国歌结束时将旗升到杆顶。但几秒钟后，国旗脱离了旗杆掉了下来，可能是刚才拿下拽的太狠了，解除了国旗的固定措施。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/primary-school2.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/primary-school2.jpg" /></p>
 
 <p>　　7.数学李老师一直怀疑我是个数学天才，经常高估我的水平。有一次数学考试，把8开的单面卷子对折来答，我答完左半边，翻过卷子，准备答右半边。李老师听到了我翻卷子的声音，立即惊讶地问：“金海峰，你答完啦？！”吓了我一跳，我急忙说：“没有，没有……”</p>
 
@@ -230,13 +185,7 @@
 
 <p>　　9.有一次新学期的二课堂开始报名了，班主任仲老师强烈建议我们全班都参加。但是许正达同学决定不参加。仲老师说：“你看大家都学啊，二课堂会讲很多重要的知识，落课了怎么办，你为什么不学啊？”“我姥不让我学。”我感觉仲老师此时可能怀疑许正达在说谎，她问：“你姥姥怎么跟你说的啊？”许正达好像忘记了姥姥具体是怎么说的了，便眉头紧锁陷入了沉思，片刻之后，他的眉毛忽然间舒展了，仿佛突然间想起了什么，面露喜色，感觉自己马上就要从被老师怀疑的窘迫境地中解脱了，他的答案证明了他真的没有说谎，他兴高采烈地说：“我姥姥说那些东西都是学校骗钱的。”唉，真是可怜的小孩，大家现在应该都能明白老师听到这种话会有什么感受，后果也可想而知了，默哀……小孩子说话太直接了。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/primary-school3.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/primary-school3.jpg" /></p>
 
 <p>再写两个番外篇，分别是我幼儿园和学前班的事。</p>
 
@@ -282,6 +231,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -292,7 +250,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -311,7 +268,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>

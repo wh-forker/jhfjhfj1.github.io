@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>努力真的比智力重要吗</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 01 Oct 2015
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,20 +158,14 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>关于智力对个人发展的作用我们从小就听说过无数次了，通常来讲它都与努力相提并论。好像总是有人告诉我们努力比智力更重要。那么我们就先来讨论一下努力和智力那个对个人发展的作用更大。</p>
 
 <p>所有能问出努力和智力那个更重要这种问题的人，恐怕都对因果关系的数学建模过于简单了。这些人认为当多个原因导致一个结果的时候，每个原因都是并联的，在这个因果关系中占有了一定的比例，占比越大则越重要。即使有一个原因完全消失也可以由其他原因来导致相同的结果。例如巴西获得世界杯总冠军，每个队员都对导致这个结果有一定的成因占比。而此时如果其余队员的影响力足够大，即使有一个人完全缺席比赛也是有可能导致相同结果的。</p>
 
 <p>然而并不是所有的事情都是这样。原因不仅可以并联，还可以串联。我们来试想这样一个问题，在红军横渡大渡河的时候，铁锁桥上的其中一根铁链上有若干个红军战士。我们把这根铁链没有被压断视为一个结果，并举出两个原因：1.铁链的第n个铁环很坚固。2.铁链的第n+1个铁环很坚固。你说这两个原因哪个更重要？他们都很重要，缺一不可。一个铁环无论多坚固，如果缺少了另一个铁环就一定无法导致原来的结果。在我看来生活中很多事情都是这样，当原因是串联关系的时候，就不可以用去除一个原因而单独观察另一个原因的方法来讨论哪个更重要。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/iq1.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/iq1.jpg" /></p>
 
 <p>对于智力和努力，他们就是串联的，缺一不可的。所以，我们必须要在两者都不是很低的情况下，这种谁更重要的讨论才有意义。一个先天患有严重弱智的残障人士无论多努力恐怕也并不能有太大起色。而一个完全不做任何努力的人智力再高也无处使用。</p>
 
@@ -212,13 +173,7 @@
 
 <p>分析至此，我们似乎很难说一个比另一个重要。那为什么我们总是感觉听到人们在说努力比智力重要呢？有谁不是听着龟兔赛跑的故事长大的？这自然是为了让乌龟们更加努力，做他们能做的改变，因为智力低是他们不能改变的事实。我并不反对以传播所谓的正能量为由，以洗脑的方式，让人们在他们幻想的美好世界里努力奋斗。但我希望每个劝导别人努力比智力更重要的人不要把自己也一起骗了，你们应该知道两者是难分高下的。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/iq2.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/iq2.jpg" /></p>
 
 <p>再说点题外话。我记得曾经看过一篇文章，叫做《如果兔子拼命奔跑,乌龟该怎么办》。里面有这样一句话：“如果你是个绝对的蠢蛋，那我只能说，请你尽量少的认识这个世界，最好一辈子不要离开你生活的地方，有时候知道的越多，越痛苦。”这句话告诉我们，蠢蛋的自信只能靠一直当井底之蛙才能得以维持。</p>
 
@@ -226,13 +181,7 @@
 
 <p>真正的自信不是因为“我比别人强，所以我自信”。而是来自于一句雷死人不偿命的话：“我就是我，是颜色不一样的烟火。”</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/iq3.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/iq3.jpg" /></p>
 
 		</div>
                 <hr>
@@ -262,6 +211,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -272,7 +230,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -291,7 +248,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>

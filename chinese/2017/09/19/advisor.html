@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>读博士如何选择导师</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 19 Sep 2017
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,20 +158,14 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>本文主要讲一下读博士如何选择导师，主要针对留学美国的计算机专业的博士。但是所有要读硕士或者博士的人都可以作为参考。本文不适合那些心中已有明确的研究方向的人，每个小领域的大牛就那么几个人，如果已经有了明确的方向，恐怕目标范围就很小了，这种情况需要针对性的分析，而非常识性的选择。</p>
 
 <p>选个好导师是非常重要的。如果选错可能造成严重后果，例如：读了七八年还不毕业，或者在实验室成天打杂，啥也没学到。又或者天天挨骂，生不如死，自尊心严重受损。</p>
 
 <p>通常来讲，导师可以大概分为两类：功成名就的老教授，初来乍到的新教授。接下来我们从如下方面对二者进行比较：管理方式，研究方向。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-<img src="/img/advisor1.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/advisor1.jpg" /></p>
 
 <p>从管理方式上来讲，功成名就的老教授通常管理比较松散，毕竟他们已经功成名就，不期望你的小科研成果来对他们整个的职业生涯有多大帮助。所以更多的时候是要求你独立自主地进行科研。好处是平时的时间相对自由，工作不会很忙。坏处是与导师进行交流的机会也不是很多，能得到的指导不是太多。而相对年轻的教授，尤其是助理教授，管理的风格则很不相同。通常平时催的比较紧，任务比较多。当然，这样一来，能指导你的机会也就相对更多。他也会更积极的帮助你出成果，因为你的成果将给他的职业生涯带来一定程度的帮助。</p>
 
@@ -217,14 +178,7 @@
 
 <p>最后祝大家都找到一个满意的到导师，博士之旅愉快。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-<img src="/img/advisor2.jpg" />
-      </div>
-</div>
-</div>
-
+<p><img class="img-fluid rounded blog-img" src="/img/advisor2.jpg" /></p>
 
 		</div>
                 <hr>
@@ -254,6 +208,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -264,7 +227,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -283,7 +245,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>

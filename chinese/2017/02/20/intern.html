@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>一个实习程序员的笔记</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 20 Feb 2017
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,15 +158,10 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>在2015年的暑期，我开始了<strong>人生中的第一次实习</strong>。实习的这家公司叫葫芦（Hulu），是一家美国的网络视频公司，位于美国加州圣莫妮卡，在洛杉矶市附近。它的特点是公司规模不大，且拥有一切美国科技公司的先进管理模式和自由的企业文化。下面我就来简单的分享一些实习期间的见闻与思考，希望能让读者一窥美国科技公司的概况。同时对自己所学到知识的总结。</p>
-<div class="row">
-<div class="col-lg-12">
-<div class="thumbnail">
-<img src="/img/intern1.jpg" />
-</div>
-</div>
-</div>
+
+<p><img class="img-fluid rounded blog-img" src="/img/intern1.jpg" /></p>
 
 <p>###软件工程</p>
 
@@ -231,13 +193,7 @@
   <li>如果ticket完成过程中需要他人介入或遇到任何问题，记得在该ticket下的留言板中记录下相关信息，便于事后查阅。</li>
 </ol>
 
-<div class="row">
-<div class="col-lg-12">
-<div class="thumbnail">
-<img src="/img/intern2.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/intern2.jpg" /></p>
 
 <p>###企业文化
 公司内部非常重视企业文化的构建，鼓励大家能够自由快乐地工作。在我的感受中，公司并没有非常严格的管理，工作中也没有太大的压力，基本出于自愿。每天的上班和下班时间也很自由，只要上午11点之前到办公室就可以。晚上的下班时间也很自由，基本四点半以后就可以自由离去了。</p>
@@ -248,13 +204,7 @@
 
 <p>企业文化中我还看到的一点就是排除干扰，提升效率。公司的休息区有很多零食和饮料，全都免费，还有非常高级的咖啡机，甚至还有各种药品和急救包，可以保证员工的很多需求都能在若干米的活动范围之内解决。不用出门买药，不用去咖啡店买咖啡，不用去买各种零食。每天的早餐都可以在公司解决，这样就能让员工节省在外买早餐或自己做早餐的时间，更早的来工作。这样就为员工的工作排出了很多干扰。对于开发团队，所有的设备，如显示器键盘等等，都可以随意增加。每人配备高级的座椅和升降桌，避免长期工作对脊椎的影响。所有开发中使用的软件都可以由公司购买。这样就保证了使用最优的工具，以提高产出的效率。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-<img src="/img/intern3.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/intern3.jpg" /></p>
 
 		</div>
                 <hr>
@@ -284,6 +234,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -294,7 +253,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -313,7 +271,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>

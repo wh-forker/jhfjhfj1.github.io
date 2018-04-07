@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>我与A协</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 17 Apr 2014
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,7 +158,7 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>大学毕业以后发现离曾经的圈子越来越远，非常怀念原来在A协和大家一起奋斗的日子，在这里写一篇文章，献给有很多美好回忆的A协，也献给渐渐远离A协的我。</p>
 
 <p>首先，回顾一下我为什么会参与到A协的建设工作中来。我大一几乎是游荡了一年，没干什么正事。玩得很开心，学习也没少耽误，高数（上）打75分。大一升大二的暑假和犇哥一起去参加北大的竞赛培训，回来之后发现网络赛比得一塌糊涂，平均每个赛区过题数不到一题。我那时候开始意识到我需要系统的训练。然后开始寻找去其他学校训练的机会，这个过程漫长而痛苦，因为总是被拒绝。也正是这段不太开心的求学经历让我萌生了想要改变北林现状的想法，我不想看到后来人再像我一样遇到求学无门的情况。这就是我为什么会加入A协。幸好后来中国地质大学（北京）的ACM集训队队长王鑫学长好心收留了我，我才真正开始了相对正规的训练，哈哈，高兴高兴！在那里我学到了很多东西，也认识了一些朋友。（非常感谢地大同学们对我的帮助！鞠躬鞠躬！）也正是这段时间让我得到了一点点管理集训队的经验。也更加希望能有一个组织可以让北林的同学不用跨校更方便的学习。</p>
@@ -202,14 +169,7 @@
 
 <p>最后跟A协的同学们说几句心里话，也算是我对A协未来的小小期望。A协对我来说就像是一个孩子，看着他成长。我曾经特别希望A协能够发扬光大，希望A协的成员能在比赛中创造更好的成绩。但是这些不是最重要的。在我看来最重要的是你们是否从中有所收获，得到了自己想要的东西。这也是最开始创办A协的初衷，为同学们学习提供便利。如果你们所有人都从中收获颇丰，即便有一天没人再需要A协，A协也不复存在，我也不会有任何的遗憾，因为它已经完成了它的使命，并在它的时代写下了辉煌的一笔。其实它永远不会消失，你们每个从中受益的人都是它的一部分，你们的未来就是A协的价值所在。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/A-Club1.png" />
-      </div>
-</div>
-</div>
-
+<p><img class="img-fluid rounded blog-img" src="/img/A-Club1.jpg" /></p>
 
 		</div>
                 <hr>
@@ -239,6 +199,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -249,7 +218,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -268,7 +236,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>

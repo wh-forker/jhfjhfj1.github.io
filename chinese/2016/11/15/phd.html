@@ -35,96 +35,64 @@
 
 <body>
 	<!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top" id="nav_bar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html"
-            class="navbar-brand">
-                Haifeng Jin's Blog
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/index.html">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="/index.html" class="navbar-brand">
+            Haifeng Jin's Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index.html">
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/technology/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technology/index.html">
                         Technology
                     </a>
                 </li>
-                <li>
-                    <a href="/codeforces/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/codeforces/index.html">
                         Competitive
                     </a>
                 </li>
-                <li>
-                    <a href="/chinese/index.html">
+                <li class="nav-item">
+                    <a class="nav-link" href="/chinese/index.html">
                         Chinese
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Search
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form class="navbar-form" style="padding-bottom:35px">
-                                <input type="text" name="search-key-words" class="form-control col-lg-8"
-                                onkeydown="if(event.keyCode==13) googlesearch();" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        Contact
-                        <b class="caret">
-                        </b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="https://www.linkedin.com/in/HaifengJin">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Contact
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://www.linkedin.com/in/HaifengJin">
                                 Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jhfjhfj1">
+                </a>
+                <a class="dropdown-item" href="https://github.com/jhfjhfj1">
                                 GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:jin@tamu.edu">
+                </a>
+                <a class="dropdown-item" href="mailto:jin@tamu.edu">
                                 E-mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
+                </a>
+                <a class="dropdown-item" href="https://www.facebook.com/people/Haifeng-Jin/100002510906960">
                                 Facebook
-                            </a>
-                        </li>
-
-                </li>
-                <li>
-                </li>
+                </a>
+              </div>
+            </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" onkeydown="if(event.keyCode==13) googlesearch();" name="search-key-words" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="googlesearch()">Search</button>
+            </form>
         </div>
-    </div>
-</div>
+</nav>
 <script type="text/javascript">
     function googlesearch() {
+    console.log('google call');
         var key = document.getElementsByName("search-key-words")[0].value;
         var link = "http://www.google.com/search?domains=haifengjin.com&sitesearch=haifengjin.com&q=" + key;
         window.open(link);
@@ -135,15 +103,14 @@
     <div id="listener-contained" class="listener pointer">
 <style>
 </style>
-<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')"> 
+<header class="intro-header" id="header" style="background-image: url('/img/chinese.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-lg-12">
                     <div class="site-heading">
 
 		<div id="plate-contained" class="plate">
                         <h1>Chinese</h1>
-                        <hr class="small">
                         <span class="subheading">Across the Great Wall, We Can Reach Every Corner in the World</span>
 </div>
 
@@ -169,7 +136,7 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-		
+
                 <h2>读博士的价值在哪里</h2>
                 <hr>
 
@@ -180,7 +147,7 @@
 			Posted on 15 Nov 2016
 		</span>
 
-		<div class="pull-right">
+		<div class="float-right">
 			
 		</div>
 
@@ -191,7 +158,7 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-		<div style="font-size: 16px; line-height: 26px">
+		<div class="blog-content" >
 		<p>这篇文章主要分析一下我自己来读美国的计算机专业博士的意义在哪里，只与读硕士进行对比，阐述博士为什么能给我带来更大的价值。请注意，这篇文章不叫《我为什么要读博士》，因为我当初选择读博士并不是因为读博士有更大的价值，而是因为我负担不起读硕士的学费。读了博士之后又感觉要比硕士多花好多年的时间，如果不比读硕士的有更大的价值就划不来。所以现在我写这篇文章来进行自我催眠，告诉自己读博士能给我带来比读硕士更大的价值。各位读者请不要阻止我活在我美好的幻想里。</p>
 
 <p><strong>先来说说哪些内容不在我的讨论范围之内。</strong></p>
@@ -206,13 +173,7 @@
 我个人所认为的一件事是否有价值就是看其对人生最高点的高度是否有提升作用。
 那这个高度的衡量标准就是掌握社会资源的多少。<strong>简单来说就是钱。</strong></p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/phd1.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/phd1.jpg" /></p>
 
 <p><strong>我们先来看看读博士实实在在能看见的价值。</strong></p>
 
@@ -226,13 +187,7 @@
 
 <p>在这里很多人可能会有一些质疑，读硕士还有一条路就是回国创业，直接当首席执行官，赚的又多。但是这条路不适合我，因为我非常注意规避风险。如果将失败的风险算到其中，我回国创业的收获价值的期望值还是很低的。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/phd2.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/phd2.jpg" /></p>
 
 <p>刚才说了一些实实在在能看得见的趋势，我们再来从人类学的角度分析一下，那些<strong>人类社会发展的大趋势是怎样帮助提升博士的价值的。</strong></p>
 
@@ -242,13 +197,7 @@
 
 <p>有时候感觉自己的圈子太小了，朋友里没有一个是工业界计算机行业的研究员。只是偶尔会有些机会接触到这个圈子，但是无论怎么判断都会知道他们是存在的。他们只是大量博士毕业生中的少数人，多数人还是要去做普通的软件工程师。但我坚信随着社会的发展，工业界的研究岗位会越来越多，为普通博士毕业生敞开大门。</p>
 
-<div class="row">
-<div class="col-lg-12">
-      <div class="thumbnail">
-          <img src="/img/phd3.jpg" />
-      </div>
-</div>
-</div>
+<p><img class="img-fluid rounded blog-img" src="/img/phd3.jpg" /></p>
 
 <p><strong>我既然已经看见了读博士的长期价值，就要敢于做长期的投资。</strong>我在罗辑思维节目中了解到一本书，叫《我在底层的生活》作者是芭芭拉·艾伦瑞克，里面有一个社会底层的女工，每天赚45美元，却花40美元住汽车旅馆。其它公寓的房费要便宜的多，但要先交1000美元的定金，而她交不起。她懒得思考如何贷款获得定金也不愿意做这种长期投资，从而导致了她的财政状况永远陷在这个住旅馆的恶性循环里。这是一种很可怕的穷人思维。我也因为穷人思维选择了博士，因为我不愿意交硕士的学费。但是现在我看到了博士的价值，这个类比就发生了反转。1000元定金不再对应硕士学费的资金投入，而是对应博士学位的时间投入。如果我现在不敢做博士的这个长期投资，反而成了穷人思维。我应该做的就是通过读博士的时间交了这1000美元的定金，让我在进入工业界之后的职业道路进入一个更好的良性循环。</p>
 
@@ -282,6 +231,15 @@
             </div>
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4" id="side_bar">
+				<div><p></p></div>
+<!-- Side Widget Well -->
+<div class="card">
+  <div class="card-header"><big>简介</big></div>
+  <div class="card-body">
+    <p>定期推送请扫描下方二维码关注微信公众号。</p>
+    <img class="img-fluid" src="/img/qrcode.jpg">
+  </div>
+</div>
 
             </div>
 
@@ -292,7 +250,6 @@
 
     </div>
     <!-- /.container -->
-
 
 
 
@@ -311,7 +268,7 @@
 
 </script>
 
-    
+
 </body>
 
 </html>
